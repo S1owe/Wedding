@@ -1,0 +1,8 @@
+$path: '@assets/fonts/BraahOne';
+
+@font-face {
+  font-family: 'BraahOne';
+  src: url("#{$path}/BraahOne-Regular.ttf") format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}

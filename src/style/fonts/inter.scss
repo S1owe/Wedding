@@ -1,0 +1,28 @@
+@use "sass:map";
+
+$path: '@assets/fonts/Inter';
+
+$font-weights: (
+  'Thin':       100,
+  'ExtraLight': 200,
+  'Light':      300,
+  'Regular':    400,
+  'Medium':     500,
+  'SemiBold':   600,
+  'Bold':       700,
+  'ExtraBold':  800,
+  'Black':      900
+);
+
+@each $style, $suffix in (normal: '', italic: 'Italic') {
+  @each $weight-name in map.keys($font-weights) {
+    $weight-value: map.get($font-weights, $weight-name);
+
+    @font-face {
+      font-family: 'Inter';
+      src: url("#{$path}/Inter-#{$weight-name}#{$suffix}.ttf") format('truetype');
+      font-weight: $weight-value;
+      font-style: $style;
+    }
+  }
+}

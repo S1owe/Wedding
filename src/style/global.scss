@@ -1,0 +1,67 @@
+@use "variables/color.scss" as color;
+@use "variables/font.scss" as font;
+@use "variables/transition.scss" as transition;
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+
+.fadeMedium-enter-active, .fadeMedium-leave-active {
+  transition: opacity .35s;
+}
+.fadeMedium-enter-from, .fadeMedium-leave-to {
+  opacity: 0;
+}
+
+.fadeFast-enter-active, .fadeFast-leave-active {
+  transition: opacity .25s;
+}
+.fadeFast-enter-from, .fadeFast-leave-to {
+  opacity: 0;
+}
+
+.fadeSlow-enter-active, .fadeSlow-leave-active {
+  transition: opacity 1s;
+}
+.fadeSlow-enter-from, .fadeSlow-leave-to {
+  opacity: 0;
+}
+
+.list-move,
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: scaleY(0.01) translate(30px, 0);
+}
+
+.list-leave-active {
+  position: absolute;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+#app, button, input, textarea, b {
+  font-family: font.$inter;
+}
+
+b {
+  font-weight: 600;
+}
+
+.svg {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

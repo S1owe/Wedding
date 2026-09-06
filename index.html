@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="language" content="Russian">
+    <script>
+      // Vite собирает относительные URL, а этот base направляет всю статику
+      // либо в /play/, либо в корень — в том числе на вложенных маршрутах.
+      (() => {
+        const basePath = /^\/play(?:\/|$)/.test(window.location.pathname) ? '/play/' : '/';
+        const baseElement = document.createElement('base');
+        baseElement.href = basePath;
+        document.head.appendChild(baseElement);
+      })();
+    </script>
+    <link rel="icon" href="%BASE_URL%favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Моноград — бесплатная онлайн Монополия</title>
+    <meta name="description" content="Играй в Монополию онлайн бесплатно с друзьями, живыми соперниками или умными ai ботами. Заходи и строй свою империю прямо сейчас!">
+
+    <meta name="theme-color" content="#171327">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+
+    <meta name="yandex-verification" content="3844c2429d3b4a55" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Моноград | Бесплатная онлайн Монополия">
+    <meta property="og:description" content="Бесплатная онлайн Монополия с друзьями. Регистрируйтесь и играйте прямо сейчас!">
+    <meta property="og:image" content="https://i.monograd.game/og-image.jpg">
+    <meta property="og:url" content="https://i.monograd.game/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Играть в Моноград — бесплатная онлайн Монополия">
+    <meta name="twitter:description" content="Бесплатная онлайн Монополия с друзьями в браузере">
+    <meta name="twitter:image" content="https://i.monograd.game/twitter-image.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="%BASE_URL%favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="%BASE_URL%favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="%BASE_URL%favicon-64x64.png">
+    <link rel="icon" type="image/png" sizes="128x128" href="%BASE_URL%favicon-128x128.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="%BASE_URL%apple-touch-icon.png">
+
+    <link rel="canonical" href="https://i.monograd.game/">
+
+    <!-- JSON-LD структурированные данные -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebApplication",
+            "name": "Моноград — лучшая онлайн версия классической Монополии!",
+            "url": "https://i.monograd.game/",
+            "applicationCategory": "GameApplication",
+            "operatingSystem": "Browser",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "RUB"
+            },
+            "description": "Онлайн версия классической Монополии для игры с друзьями"
+          },
+          {
+            "@type": "VideoGame",
+            "name": "Моноград",
+            "playMode": "Multiplayer",
+            "gamePlatform": "Web Browser",
+            "description": "Многопользовательская онлайн Монополия"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
