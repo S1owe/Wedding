@@ -23,10 +23,17 @@
   opacity: 0;
 }
 
-.fadeSlow-enter-active, .fadeSlow-leave-active {
-  transition: opacity 1s;
+.fadeSlow-enter-active {
+  transition: opacity 1s ease, transform 1s ease;
 }
-.fadeSlow-enter-from, .fadeSlow-leave-to {
+.fadeSlow-leave-active {
+  transition: opacity .4s ease;
+}
+.fadeSlow-enter-from {
+  opacity: 0;
+  transform: translateY(24px);
+}
+.fadeSlow-leave-to {
   opacity: 0;
 }
 
@@ -46,17 +53,42 @@
   position: absolute;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   padding: 0;
   margin: 0;
+  background: color.$paper;
+  color: color.$ink;
+  overflow-x: hidden;
 }
 
-#app, button, input, textarea, b {
-  font-family: font.$inter;
+body.no-scroll {
+  overflow: hidden;
+}
+
+#app, button, input, textarea {
+  font-family: font.$body;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: font.$heading;
+  font-weight: 500;
+  margin: 0;
 }
 
 b {
   font-weight: 600;
+}
+
+a {
+  color: color.$accent-pink;
 }
 
 .svg {
@@ -65,3 +97,106 @@ b {
   align-items: center;
   justify-content: center;
 }
+
+// Скролл-реявка секций — управляется директивой v-reveal
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .9s cubic-bezier(.22, 1, .36, 1), transform .9s cubic-bezier(.22, 1, .36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.section {
+  position: relative;
+  padding: 120px 24px;
+  max-width: 1080px;
+  margin: 0 auto;
+
+  @media all and (max-width: 700px) {
+    padding: 88px 20px;
+  }
+}
+
+.section__eyebrow {
+  display: block;
+  text-align: center;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;
+  color: color.$accent-pink;
+  margin-bottom: 18px;
+}
+
+.section__title {
+  text-align: center;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(30px, 4.4vw, 46px);
+  color: color.$ink;
+  letter-spacing: 0.01em;
+}
+
+.section__divider {
+  width: 40px;
+  height: 1px;
+  margin: 24px auto 0;
+  background: color.$hairline;
+}
+
+.section__text {
+  max-width: 620px;
+  margin: 32px auto 0;
+  text-align: center;
+  font-size: 16.5px;
+  line-height: 1.9;
+  color: color.$muted-text;
+  font-weight: 300;
+}
+
+.soft-card {
+  background: color.$card-bg;
+  border: 1px solid color.$card-border;
+  border-radius: 4px;
+  box-shadow: 0 30px 60px -20px color.$card-shadow;
+}
+
+// Секции, лежащие поверх фотографии кинематографического фона —
+// текст переключается на светлую схему для контраста со сценой позади.
+.on-photo {
+  .section__title { color: color.$white; }
+  .section__divider { background: rgba(255, 255, 255, 0.4); }
+  .section__text { color: rgba(255, 255, 255, 0.88); }
+}
+
+// Читаемая «панель» для контента поверх переливающегося градиента —
+// сам градиент остаётся видимым и подвижным вокруг панели и сквозь блюр,
+// но текст, пастельные образцы и т.п. получают гарантированный контраст.
+.section-panel {
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(30px) saturate(1.15);
+  -webkit-backdrop-filter: blur(30px) saturate(1.15);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 32px;
+  box-shadow: 0 40px 80px -34px rgba(47, 42, 46, 0.22);
+  padding: 56px 44px;
+
+  @media all and (max-width: 700px) {
+    padding: 40px 22px;
+    border-radius: 22px;
+  }
+}
+

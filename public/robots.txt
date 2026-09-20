@@ -3,4 +3,4 @@ Disallow: /admin/
 Disallow: /private/
 Allow: /
 
-Sitemap: https://i.monograd.game/sitemap.xml
+Sitemap: https://wedding06082027.ru/sitemap.xml

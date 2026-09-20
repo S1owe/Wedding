@@ -1,0 +1,30 @@
+// Брендовая палитра
+$accent-pink: #e93771;
+$light-pink: #fbbbd3;
+$sky-blue: #7cb2de;
+$light-blue: #add1eb;
+$white: #ffffff;
+
+// Тёплые нейтральные (бумага/фон/текст)
+$paper: #fbf7f4;
+$paper-shade: #f2e9e3;
+$ink: #2f2a2e;
+$muted-text: #8c8085;
+$hairline: rgba(47, 42, 46, 0.12);
+
+// Пастельная палитра дресс-кода (без белого и без насыщенного акцента)
+$pastel-blush: #f4d9de;
+$pastel-rose: #e9c7cd;
+$pastel-powder: #d3e3f0;
+$pastel-sky: #dcebf4;
+$pastel-sage: #dbe4d6;
+$pastel-champagne: #ecdfc8;
+$pastel-lilac: #e0d5e8;
+
+// Карточки — мягкие, бумажные, без тяжёлого стекла
+$card-bg: rgba(255, 255, 255, 0.72);
+$card-border: rgba(47, 42, 46, 0.08);
+$card-shadow: rgba(90, 70, 75, 0.10);
+
+// Точечные градиенты (используются скупо — только акцентные детали)
+$gradient-accent: linear-gradient(120deg, $accent-pink, $sky-blue);
