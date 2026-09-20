@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import SectionHeading from '@ui/SectionHeading.vue';
+import ChapterMark from '@ui/ChapterMark.vue';
 import CopyIcon from '@icons/CopyIcon.vue';
 import CheckIcon from '@icons/CheckIcon.vue';
 import { SURPRISES_CONTACT } from '@/data/weddingConfig';
@@ -24,69 +24,87 @@ const copyContact = async () => {
 </script>
 
 <template>
-  <section v-chapter="'surprises'" class="section surprises">
-    <div v-reveal class="section-panel">
-      <SectionHeading eyebrow="Есть идея?" title="Ваши сюрпризы" />
-      <p class="section__text">
-        У вас есть отдельное пожелание, сюрприз или конкурс для нас?
-        Свяжитесь с нашим ведущим, чтобы обсудить все детали!
-      </p>
+  <section id="surprises" class="band band--ink-soft surprises">
+    <div class="shell">
+      <ChapterMark index="07" label="Сюрпризы" />
 
-      <button type="button" class="surprises__contact" @click="copyContact">
-        <span>{{ SURPRISES_CONTACT }}</span>
-        <CheckIcon v-if="isCopied" />
-        <CopyIcon v-else />
-      </button>
-      <p class="surprises__hint">{{ isCopied ? 'Скопировано!' : 'Нажмите, чтобы скопировать' }}</p>
+      <div class="editorial">
+        <div>
+          <span v-reveal class="eyebrow">Есть идея?</span>
+          <h2 v-reveal="60" class="display">Ваш сюрприз<br>мы сохраним в тайне.</h2>
+        </div>
+
+        <div v-reveal="120" class="surprises__panel">
+          <p class="lede surprises__text">
+            Если у вас есть отдельное пожелание, номер или конкурс для нас — напишите нашему
+            ведущему. Он поможет вписать это в вечер так, чтобы для нас это осталось сюрпризом.
+          </p>
+
+          <button type="button" class="surprises__contact" @click="copyContact">
+            <span>{{ SURPRISES_CONTACT }}</span>
+            <CheckIcon v-if="isCopied" />
+            <CopyIcon v-else />
+          </button>
+
+          <p class="surprises__hint">
+            {{ isCopied ? 'Скопировано' : 'Нажмите, чтобы скопировать' }}
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 </template>
 
 <style scoped lang="scss">
 @use "@/style/variables/color.scss" as color;
+@use "@/style/variables/font.scss" as font;
 @use "@/style/variables/transition.scss" as transition;
 
-.surprises {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.surprises__panel {
+  padding: clamp(28px, 4vw, 44px);
+  border: 1px solid color.$line-on-dark;
+  background: color.$ink;
 }
 
-.surprises .section-panel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.surprises__text {
+  margin-top: 0;
 }
 
 .surprises__contact {
-  margin-top: 36px;
+  margin-top: 30px;
+  width: 100%;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 13px 30px;
-  border: 1px solid color.$accent-pink;
-  border-radius: 999px;
-  font-family: inherit;
-  font-size: 15px;
-  font-weight: 500;
-  color: color.$accent-pink;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 18px 22px;
+  border: 1px solid color.$line-on-dark;
+  border-radius: 2px;
   background: transparent;
+  font-family: font.$heading;
+  font-size: clamp(17px, 2.2vw, 22px);
+  color: color.$paper-bright;
   cursor: pointer;
-  transition: background transition.$fast, color transition.$fast;
-
-  &:hover {
-    background: color.$accent-pink;
-    color: color.$white;
-  }
+  transition: border-color transition.$fast, background transition.$fast;
 
   svg {
-    font-size: 15px;
+    font-size: 16px;
+    color: color.$smoke;
+    flex: none;
+  }
+
+  &:hover {
+    border-color: rgba(221, 214, 201, 0.42);
+    background: rgba(232, 225, 214, 0.04);
   }
 }
 
 .surprises__hint {
-  margin-top: 16px;
-  font-size: 12.5px;
-  color: color.$muted-text;
+  margin: 14px 0 0;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color.$smoke;
 }
 </style>

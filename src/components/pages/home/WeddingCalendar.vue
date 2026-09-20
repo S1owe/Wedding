@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import SectionHeading from '@ui/SectionHeading.vue';
-import HeartIcon from '@icons/HeartIcon.vue';
+import ChapterMark from '@ui/ChapterMark.vue';
+import CalendarIcon from '@icons/CalendarIcon.vue';
 import type { CalendarDay } from '@/types/wedding';
+import { buildCalendarUrl } from '@/composables/useCalendarLink';
 import {
   CALENDAR_MONTH_NAME,
   WEEKDAY_LABELS,
-  WEDDING_DATE_LABEL,
+  WEDDING_DATE_SPACED,
   WEDDING_DAY,
   WEDDING_MONTH_INDEX,
   WEDDING_YEAR,
 } from '@/data/weddingConfig';
+
+const calendarUrl = buildCalendarUrl();
 
 const weeks = computed<CalendarDay[][]>(() => {
   const firstOfMonth = new Date(WEDDING_YEAR, WEDDING_MONTH_INDEX, 1);
@@ -45,16 +48,33 @@ const weeks = computed<CalendarDay[][]>(() => {
 </script>
 
 <template>
-  <section v-chapter="'love'" class="section calendar-section">
-    <div class="section-panel calendar-panel">
-      <SectionHeading eyebrow="Отметьте в календаре" title="Дата свадьбы" />
+  <section id="date" class="band band--ink-soft calendar-section">
+    <div class="shell">
+      <ChapterMark index="02" label="Дата" />
 
-      <div class="calendar-layout">
-        <div v-reveal class="calendar">
+      <div class="editorial">
+        <div>
+          <span v-reveal class="eyebrow">Отметьте в календаре</span>
+          <h2 v-reveal="60" class="display">Один день,<br>который мы ждём.</h2>
+          <p v-reveal="120" class="lede">
+            В этот день мы скажем «да» — и будем рады, если вы окажетесь в этом кадре рядом с нами.
+          </p>
+
+          <p v-reveal="160" class="calendar-section__date">{{ WEDDING_DATE_SPACED }}</p>
+
+          <a v-reveal="200" class="btn btn--solid calendar-section__cta" :href="calendarUrl" target="_blank" rel="noopener noreferrer">
+            <CalendarIcon />
+            Добавить в календарь
+          </a>
+        </div>
+
+        <div v-reveal="120" class="calendar">
           <p class="calendar__month">{{ CALENDAR_MONTH_NAME }} {{ WEDDING_YEAR }}</p>
+
           <div class="calendar__weekdays">
             <span v-for="label in WEEKDAY_LABELS" :key="label">{{ label }}</span>
           </div>
+
           <div class="calendar__weeks">
             <div v-for="(week, weekIndex) in weeks" :key="weekIndex" class="calendar__week">
               <span
@@ -66,16 +86,10 @@ const weeks = computed<CalendarDay[][]>(() => {
                   'calendar__day--highlighted': day.isHighlighted,
                 }"
               >
-                <HeartIcon v-if="day.isHighlighted" class="calendar__heart" />
-                <span class="calendar__day-number">{{ day.date }}</span>
+                {{ day.date }}
               </span>
             </div>
           </div>
-        </div>
-
-        <div v-reveal="120" class="calendar-highlight">
-          <p class="calendar-highlight__date">{{ WEDDING_DATE_LABEL }}</p>
-          <p class="calendar-highlight__caption">В этот день мы скажем ДА</p>
         </div>
       </div>
     </div>
@@ -86,65 +100,64 @@ const weeks = computed<CalendarDay[][]>(() => {
 @use "@/style/variables/color.scss" as color;
 @use "@/style/variables/font.scss" as font;
 
-.calendar-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.calendar-section__date {
+  margin: 38px 0 0;
+  font-family: font.$heading;
+  font-size: clamp(24px, 3.4vw, 36px);
+  letter-spacing: 0.22em;
+  color: color.$paper-bright;
 }
 
-.calendar-panel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.calendar-layout {
-  margin-top: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 64px;
-  flex-wrap: wrap;
+.calendar-section__cta {
+  margin-top: 30px;
 }
 
 .calendar {
-  width: 320px;
+  border: 1px solid color.$line-on-dark;
+  padding: clamp(24px, 3vw, 40px);
+  background: color.$ink;
+  max-width: 440px;
+  width: 100%;
+  margin-left: auto;
+
+  @media all and (max-width: 900px) {
+    margin-left: 0;
+  }
 }
 
 .calendar__month {
-  text-align: center;
+  margin: 0 0 26px;
   font-family: font.$heading;
-  font-style: italic;
   font-size: 19px;
-  color: color.$ink;
-  margin: 0 0 20px;
+  letter-spacing: 0.06em;
+  color: color.$paper-bright;
 }
 
 .calendar__weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  justify-items: center;
-  margin-bottom: 10px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid color.$line-on-dark;
 
   span {
     text-align: center;
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    color: color.$muted-text;
+    font-size: 9px;
     font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: color.$smoke;
   }
 }
 
 .calendar__weeks {
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
 }
 
 .calendar__week {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  justify-items: center;
 }
 
 .calendar__day {
@@ -152,74 +165,22 @@ const weeks = computed<CalendarDay[][]>(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
-  font-size: 13.5px;
+  aspect-ratio: 1;
+  font-size: 13px;
   font-weight: 300;
-  color: color.$ink;
+  font-variant-numeric: tabular-nums;
+  color: color.$silver;
 
   &--muted {
-    color: rgba(47, 42, 46, 0.24);
+    color: rgba(211, 204, 191, 0.22);
   }
 
   &--highlighted {
-    font-weight: 700;
-  }
-}
-
-.calendar__day-number {
-  position: relative;
-  z-index: 1;
-}
-
-.calendar__day--highlighted .calendar__day-number {
-  color: color.$white;
-}
-
-.calendar__heart {
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  z-index: 0;
-  font-size: 44px;
-  line-height: 0;
-  color: color.$accent-pink;
-  filter: drop-shadow(0 4px 10px rgba(233, 55, 113, 0.4));
-  transform: translate(-50%, -50%) scale(1);
-  animation: heartPulse 2.4s ease-in-out infinite;
-}
-
-.calendar-highlight {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.calendar-highlight__date {
-  font-family: font.$heading;
-  font-style: italic;
-  font-size: clamp(30px, 5vw, 44px);
-  color: color.$ink;
-  margin: 0;
-}
-
-.calendar-highlight__caption {
-  margin-top: 14px;
-  font-size: 13.5px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: color.$muted-text;
-}
-
-@keyframes heartPulse {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); }
-  50% { transform: translate(-50%, -50%) scale(1.12); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .calendar__heart {
-    animation: none;
+    font-family: font.$heading;
+    font-size: 16px;
+    font-weight: 500;
+    color: color.$paper-bright;
+    background: color.$wine;
   }
 }
 </style>

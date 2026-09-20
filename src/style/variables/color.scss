@@ -1,18 +1,30 @@
-// Брендовая палитра
-$accent-pink: #e93771;
-$light-pink: #fbbbd3;
-$sky-blue: #7cb2de;
-$light-blue: #add1eb;
-$white: #ffffff;
+// Палитра «тёмной редакционной» ревизии: глубокие чернила, тёплая бумага,
+// винный акцент. Никаких заливочных градиентов — только фото, линии и типографика.
 
-// Тёплые нейтральные (бумага/фон/текст)
-$paper: #fbf7f4;
-$paper-shade: #f2e9e3;
-$ink: #2f2a2e;
-$muted-text: #8c8085;
-$hairline: rgba(47, 42, 46, 0.12);
+// Тёмная сторона
+$ink: #0b0c12;
+$ink-soft: #11131c;
+$ink-deep: #06070b;
+$ink-raise: #171a25; // приподнятые карточки на тёмном фоне
 
-// Пастельная палитра дресс-кода (без белого и без насыщенного акцента)
+// Светлая сторона
+$paper: #e8e1d6;
+$paper-bright: #f3ede4;
+$paper-shade: #dcd4c7;
+
+// Текст и линии
+$silver: #d3ccbf; // основной текст на тёмном
+$smoke: #a3a1a8; // приглушённый текст на тёмном
+$muted-text: #66636a; // приглушённый текст на светлом
+
+$line-on-dark: rgba(221, 214, 201, 0.2);
+$line-on-light: rgba(11, 12, 18, 0.14);
+
+// Акцент
+$wine: #681f2e;
+$wine-bright: #a22f40;
+
+// Палитра дресс-кода — пастель, выбранная парой (см. src/data/dressCode.ts)
 $pastel-blush: #f4d9de;
 $pastel-rose: #e9c7cd;
 $pastel-powder: #d3e3f0;
@@ -20,11 +32,3 @@ $pastel-sky: #dcebf4;
 $pastel-sage: #dbe4d6;
 $pastel-champagne: #ecdfc8;
 $pastel-lilac: #e0d5e8;
-
-// Карточки — мягкие, бумажные, без тяжёлого стекла
-$card-bg: rgba(255, 255, 255, 0.72);
-$card-border: rgba(47, 42, 46, 0.08);
-$card-shadow: rgba(90, 70, 75, 0.10);
-
-// Точечные градиенты (используются скупо — только акцентные детали)
-$gradient-accent: linear-gradient(120deg, $accent-pink, $sky-blue);

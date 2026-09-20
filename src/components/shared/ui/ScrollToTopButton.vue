@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
 import ArrowUpIcon from '@icons/ArrowUpIcon.vue';
 
 const isVisible = ref(false);
 
-const handleScroll = () => {
-  isVisible.value = window.scrollY > 480;
+const onScroll = () => {
+  isVisible.value = window.scrollY > window.innerHeight * 1.2;
 };
 
 const scrollToTop = () => {
@@ -13,20 +13,21 @@ const scrollToTop = () => {
 };
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll, { passive: true });
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
 });
 
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', onScroll);
 });
 </script>
 
 <template>
-  <transition name="fadeFast">
+  <transition name="fadeMedium">
     <button
       v-if="isVisible"
       type="button"
-      class="scroll-to-top"
+      class="to-top"
       aria-label="Наверх"
       @click="scrollToTop"
     >
@@ -39,36 +40,29 @@ onUnmounted(() => {
 @use "@/style/variables/color.scss" as color;
 @use "@/style/variables/transition.scss" as transition;
 
-.scroll-to-top {
+.to-top {
   position: fixed;
-  right: 28px;
-  bottom: 28px;
+  right: clamp(16px, 3vw, 32px);
+  bottom: clamp(16px, 3vw, 32px);
+  z-index: 40;
   width: 44px;
   height: 44px;
-  border-radius: 50%;
-  border: 1px solid color.$hairline;
-  background: color.$paper;
-  box-shadow: 0 16px 32px -18px rgba(47, 42, 46, 0.4);
-  color: color.$ink;
-  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
+  border: 1px solid color.$line-on-dark;
+  background: rgba(11, 12, 18, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: color.$paper-bright;
+  font-size: 16px;
   cursor: pointer;
-  z-index: 60;
-  transition: transform transition.$fast, border-color transition.$fast, color transition.$fast;
+  transition: background transition.$fast, border-color transition.$fast;
 
   &:hover {
-    transform: translateY(-3px);
-    border-color: color.$accent-pink;
-    color: color.$accent-pink;
-  }
-
-  @media all and (max-width: 599px) {
-    right: 18px;
-    bottom: 18px;
-    width: 40px;
-    height: 40px;
+    background: color.$ink;
+    border-color: rgba(221, 214, 201, 0.42);
   }
 }
 </style>

@@ -2,12 +2,27 @@ export interface TimelineStage {
   id: number;
   time: string;
   title: string;
-  address: string;
+  note: string;
 }
 
 export interface DressCodeColor {
   hex: string;
   name: string;
+}
+
+export type VenueFactIcon = 'route' | 'bed' | 'clock';
+
+export interface VenueFact {
+  id: string;
+  icon: VenueFactIcon;
+  title: string;
+  lines: string[];
+}
+
+export interface FaqItem {
+  id: number;
+  question: string;
+  answer: string;
 }
 
 export interface CalendarDay {

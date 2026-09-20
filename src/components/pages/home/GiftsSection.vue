@@ -1,19 +1,35 @@
 <script setup lang="ts">
-import SectionHeading from '@ui/SectionHeading.vue';
+import ChapterMark from '@ui/ChapterMark.vue';
 import EnvelopeIcon from '@icons/EnvelopeIcon.vue';
 </script>
 
 <template>
-  <section v-chapter="'timeline'" class="section gifts">
-    <div v-reveal class="section-panel gifts-panel">
-      <EnvelopeIcon class="gifts__icon" />
-      <SectionHeading title="О подарках" />
-      <p class="section__text">
-        Дорогие гости! Мы будем рады любому вашему вниманию и подарку.
-        Но если вы захотите порадовать нас, лучшим подарком станут ваши тёплые пожелания
-        в конвертах, которые помогут нам исполнить наши общие мечты.
-        А ещё на нашем празднике вас ждут увлекательные денежные конкурсы!
-      </p>
+  <section id="gifts" class="band band--paper gifts">
+    <div class="shell">
+      <ChapterMark index="05" label="О подарках" />
+
+      <div class="editorial">
+        <div>
+          <span v-reveal class="eyebrow">Дорогие гости</span>
+          <h2 v-reveal="60" class="display">Лучший подарок — вы рядом.</h2>
+        </div>
+
+        <div v-reveal="120" class="gifts__note">
+          <EnvelopeIcon class="gifts__icon" />
+
+          <p class="gifts__text">
+            Мы будем рады любому вашему вниманию. Но если захочется порадовать нас чем-то
+            большим — лучшим подарком станут тёплые пожелания в конверте: они помогут нам
+            исполнить наши общие мечты.
+          </p>
+
+          <hr class="hairline gifts__rule">
+
+          <p class="gifts__aside serif-note">
+            А ещё на празднике вас ждут денежные конкурсы — будет весело.
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -21,23 +37,30 @@ import EnvelopeIcon from '@icons/EnvelopeIcon.vue';
 <style scoped lang="scss">
 @use "@/style/variables/color.scss" as color;
 
-.gifts {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.gifts-panel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-top: 3px solid color.$accent-pink;
-  box-shadow: 0 40px 80px -32px rgba(233, 55, 113, 0.28);
+.gifts__note {
+  padding: clamp(28px, 4vw, 44px);
+  border: 1px solid color.$line-on-light;
+  background: color.$paper-bright;
 }
 
 .gifts__icon {
-  font-size: 30px;
-  color: color.$accent-pink;
-  margin-bottom: 24px;
+  font-size: 20px;
+  color: color.$wine;
+}
+
+.gifts__text {
+  margin: 22px 0 0;
+  font-size: 15px;
+  line-height: 1.85;
+  color: color.$muted-text;
+}
+
+.gifts__rule {
+  margin: 26px 0;
+}
+
+.gifts__aside {
+  margin: 0;
+  color: color.$ink;
 }
 </style>

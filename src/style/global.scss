@@ -2,6 +2,8 @@
 @use "variables/font.scss" as font;
 @use "variables/transition.scss" as transition;
 
+/* ---------- transitions ---------- */
+
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;
 }
@@ -40,18 +42,20 @@
 .list-move,
 .list-enter-active,
 .list-leave-active {
-  transition: all 0.5s cubic-bezier(0.42, 0, 0.58, 1);
+  transition: all 0.45s transition.$ease-out;
 }
 
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
-  transform: scaleY(0.01) translate(30px, 0);
+  transform: translateY(-8px);
 }
 
 .list-leave-active {
   position: absolute;
 }
+
+/* ---------- base ---------- */
 
 * {
   box-sizing: border-box;
@@ -64,22 +68,23 @@ html {
 body {
   padding: 0;
   margin: 0;
-  background: color.$paper;
-  color: color.$ink;
+  background: color.$ink;
+  color: color.$silver;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 body.no-scroll {
   overflow: hidden;
 }
 
-#app, button, input, textarea {
+#app, button, input, textarea, select {
   font-family: font.$body;
 }
 
 h1, h2, h3, h4, .font-heading {
   font-family: font.$heading;
-  font-weight: 500;
+  font-weight: 400;
   margin: 0;
 }
 
@@ -88,21 +93,20 @@ b {
 }
 
 a {
-  color: color.$accent-pink;
+  color: inherit;
 }
 
-.svg {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+::selection {
+  background: color.$wine;
+  color: color.$paper-bright;
 }
 
-// Скролл-реявка секций — управляется директивой v-reveal
+/* ---------- scroll reveal (v-reveal) ---------- */
+
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity .9s cubic-bezier(.22, 1, .36, 1), transform .9s cubic-bezier(.22, 1, .36, 1);
+  transform: translateY(26px);
+  transition: opacity .9s transition.$ease-out, transform .9s transition.$ease-out;
   will-change: opacity, transform;
 }
 
@@ -117,86 +121,248 @@ a {
     opacity: 1;
     transform: none;
   }
+
+  html {
+    scroll-behavior: auto;
+  }
 }
 
-.section {
+/* ---------- layout ---------- */
+
+// Чередование светлых и тёмных полос — основа ритма всей страницы.
+.band {
   position: relative;
-  padding: 120px 24px;
-  max-width: 1080px;
+  padding: clamp(80px, 11vw, 160px) 0;
+
+  &--ink {
+    background: color.$ink;
+    color: color.$silver;
+  }
+
+  &--ink-soft {
+    background: color.$ink-soft;
+    color: color.$silver;
+  }
+
+  &--paper {
+    background: color.$paper;
+    color: color.$ink;
+  }
+
+  &--photo {
+    background: color.$ink;
+    color: color.$silver;
+    overflow: hidden;
+  }
+}
+
+.shell {
+  width: 100%;
+  max-width: 1240px;
   margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 64px);
+}
 
-  @media all and (max-width: 700px) {
-    padding: 88px 20px;
+// Двухколоночная редакционная сетка: слева заголовок, справа содержимое.
+.editorial {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 6vw, 96px);
+  align-items: start;
+
+  @media all and (max-width: 900px) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 48px;
   }
 }
 
-.section__eyebrow {
-  display: block;
-  text-align: center;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  font-size: 11px;
-  font-weight: 600;
-  color: color.$accent-pink;
-  margin-bottom: 18px;
-}
+/* ---------- typography ---------- */
 
-.section__title {
-  text-align: center;
-  font-style: italic;
+// «01 / НАША ИСТОРИЯ» — номер главы над каждым блоком.
+.chapter-mark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 10px;
   font-weight: 500;
-  font-size: clamp(30px, 4.4vw, 46px);
-  color: color.$ink;
-  letter-spacing: 0.01em;
-}
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: color.$smoke;
+  margin-bottom: clamp(36px, 6vw, 72px);
 
-.section__divider {
-  width: 40px;
-  height: 1px;
-  margin: 24px auto 0;
-  background: color.$hairline;
-}
-
-.section__text {
-  max-width: 620px;
-  margin: 32px auto 0;
-  text-align: center;
-  font-size: 16.5px;
-  line-height: 1.9;
-  color: color.$muted-text;
-  font-weight: 300;
-}
-
-.soft-card {
-  background: color.$card-bg;
-  border: 1px solid color.$card-border;
-  border-radius: 4px;
-  box-shadow: 0 30px 60px -20px color.$card-shadow;
-}
-
-// Секции, лежащие поверх фотографии кинематографического фона —
-// текст переключается на светлую схему для контраста со сценой позади.
-.on-photo {
-  .section__title { color: color.$white; }
-  .section__divider { background: rgba(255, 255, 255, 0.4); }
-  .section__text { color: rgba(255, 255, 255, 0.88); }
-}
-
-// Читаемая «панель» для контента поверх переливающегося градиента —
-// сам градиент остаётся видимым и подвижным вокруг панели и сквозь блюр,
-// но текст, пастельные образцы и т.п. получают гарантированный контраст.
-.section-panel {
-  background: rgba(255, 255, 255, 0.62);
-  backdrop-filter: blur(30px) saturate(1.15);
-  -webkit-backdrop-filter: blur(30px) saturate(1.15);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 32px;
-  box-shadow: 0 40px 80px -34px rgba(47, 42, 46, 0.22);
-  padding: 56px 44px;
-
-  @media all and (max-width: 700px) {
-    padding: 40px 22px;
-    border-radius: 22px;
+  i {
+    font-style: normal;
+    opacity: 0.55;
   }
 }
 
+.band--paper .chapter-mark {
+  color: color.$muted-text;
+}
+
+.eyebrow {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: color.$wine-bright;
+  margin: 0 0 22px;
+}
+
+.band--ink .eyebrow,
+.band--ink-soft .eyebrow,
+.band--photo .eyebrow {
+  color: color.$silver;
+  opacity: 0.68;
+}
+
+.display {
+  font-family: font.$heading;
+  font-weight: 400;
+  font-size: clamp(38px, 6.2vw, 78px);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.display--small {
+  font-size: clamp(30px, 4.2vw, 52px);
+  line-height: 1.08;
+}
+
+.lede {
+  margin: 28px 0 0;
+  max-width: 46ch;
+  font-size: 15px;
+  line-height: 1.85;
+  font-weight: 400;
+  color: color.$muted-text;
+}
+
+.band--ink .lede,
+.band--ink-soft .lede,
+.band--photo .lede {
+  color: color.$smoke;
+}
+
+.serif-note {
+  font-family: font.$heading;
+  font-style: italic;
+  font-size: clamp(16px, 2vw, 19px);
+  line-height: 1.6;
+}
+
+.hairline {
+  height: 1px;
+  border: 0;
+  margin: 0;
+  background: color.$line-on-light;
+}
+
+.band--ink .hairline,
+.band--ink-soft .hairline,
+.band--photo .hairline {
+  background: color.$line-on-dark;
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 28px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  font-family: font.$body;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background transition.$fast, color transition.$fast,
+              border-color transition.$fast, transform transition.$fast;
+
+  svg {
+    font-size: 13px;
+    flex: none;
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+    transform: none;
+  }
+}
+
+// Светлая заливка — основной призыв к действию на тёмном фоне.
+.btn--solid {
+  background: color.$paper-bright;
+  color: color.$ink;
+  border-color: color.$paper-bright;
+
+  &:hover {
+    background: color.$paper;
+    border-color: color.$paper;
+  }
+}
+
+// Прозрачная кнопка с тонкой рамкой.
+.btn--ghost {
+  background: rgba(11, 12, 18, 0.45);
+  color: color.$paper-bright;
+  border-color: color.$line-on-dark;
+
+  &:hover {
+    background: rgba(11, 12, 18, 0.72);
+    border-color: rgba(221, 214, 201, 0.42);
+  }
+}
+
+// Тёмная кнопка для светлых полос.
+.btn--ink {
+  background: color.$ink;
+  color: color.$paper-bright;
+  border-color: color.$ink;
+
+  &:hover {
+    background: color.$ink-soft;
+  }
+}
+
+.btn--wine {
+  background: color.$wine;
+  color: color.$paper-bright;
+  border-color: color.$wine;
+
+  &:hover {
+    background: color.$wine-bright;
+    border-color: color.$wine-bright;
+  }
+}
+
+// Текстовая кнопка без фона — вторичное действие на светлом фоне.
+.btn--quiet {
+  background: transparent;
+  color: color.$muted-text;
+  border-color: transparent;
+  padding-left: 12px;
+  padding-right: 12px;
+
+  &:hover {
+    color: color.$ink;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover {
+    transform: none;
+  }
+}

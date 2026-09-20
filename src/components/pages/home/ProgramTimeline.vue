@@ -1,32 +1,44 @@
 <script setup lang="ts">
-import SectionHeading from '@ui/SectionHeading.vue';
+import ChapterMark from '@ui/ChapterMark.vue';
 import timeline from '@/data/timeline';
+
+const pad = (value: number) => String(value).padStart(2, '0');
 </script>
 
 <template>
-  <section v-chapter="'timeline'" class="section timeline-section">
-    <div class="section-panel">
-      <SectionHeading eyebrow="Как пройдёт день" title="Программа дня" />
+  <section id="program" class="band band--ink program">
+    <div class="shell">
+      <ChapterMark index="04" label="Программа" />
 
-      <ol class="timeline">
-        <li
-          v-for="(stage, index) in timeline"
-          :key="stage.id"
-          v-reveal="index * 90"
-          class="timeline__item"
-        >
-          <span class="timeline__time">{{ stage.time }}</span>
+      <div class="editorial program__grid">
+        <div class="program__intro">
+          <span v-reveal class="eyebrow">Сценарий дня</span>
+          <h2 v-reveal="60" class="display">Шесть сцен.<br>Один день.</h2>
+          <p v-reveal="120" class="lede">
+            Мы не просим приходить строго по расписанию — но так вам будет проще спланировать
+            дорогу, наряд и силы до самого вечера.
+          </p>
+        </div>
 
-          <span class="timeline__marker">
-            <span class="timeline__dot" />
-          </span>
+        <ol class="program__list">
+          <li
+            v-for="(stage, index) in timeline"
+            :key="stage.id"
+            v-reveal="index * 70"
+            class="program__item"
+          >
+            <span class="program__index">{{ pad(index + 1) }}</span>
+            <span class="program__time">{{ stage.time }}</span>
 
-          <span class="timeline__content">
-            <span class="timeline__title">{{ stage.title }}</span>
-            <span class="timeline__address">{{ stage.address }}</span>
-          </span>
-        </li>
-      </ol>
+            <span class="program__body">
+              <span class="program__title">{{ stage.title }}</span>
+              <span class="program__note">{{ stage.note }}</span>
+            </span>
+
+            <span class="program__dot" aria-hidden="true" />
+          </li>
+        </ol>
+      </div>
     </div>
   </section>
 </template>
@@ -34,90 +46,90 @@ import timeline from '@/data/timeline';
 <style scoped lang="scss">
 @use "@/style/variables/color.scss" as color;
 @use "@/style/variables/font.scss" as font;
+@use "@/style/variables/transition.scss" as transition;
 
-.timeline {
-  list-style: none;
-  margin: 64px 0 0;
-  padding: 0;
-  max-width: 560px;
-  margin-left: auto;
-  margin-right: auto;
+.program__grid {
+  align-items: start;
 }
 
-.timeline__item {
+.program__intro {
+  position: sticky;
+  top: 110px;
+
+  @media all and (max-width: 900px) {
+    position: static;
+  }
+}
+
+.program__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid color.$line-on-dark;
+}
+
+.program__item {
   display: grid;
-  grid-template-columns: 64px 20px 1fr;
-  column-gap: 22px;
-  padding-bottom: 40px;
+  grid-template-columns: 34px 62px minmax(0, 1fr) 10px;
+  align-items: baseline;
+  gap: 16px;
+  padding: 26px 0;
+  border-bottom: 1px solid color.$line-on-dark;
+  transition: background transition.$fast;
 
-  &:last-child {
-    padding-bottom: 0;
+  &:hover {
+    background: rgba(232, 225, 214, 0.03);
+  }
 
-    .timeline__marker::after {
+  @media all and (max-width: 520px) {
+    grid-template-columns: 26px 52px minmax(0, 1fr);
+    gap: 12px;
+
+    .program__dot {
       display: none;
     }
   }
 }
 
-.timeline__time {
+.program__index {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: color.$smoke;
+  opacity: 0.7;
+}
+
+.program__time {
   font-family: font.$heading;
-  font-style: italic;
-  font-size: 17px;
-  color: color.$ink;
-  padding-top: 1px;
-  text-align: right;
+  font-size: clamp(19px, 2.4vw, 25px);
+  color: color.$paper-bright;
+  font-variant-numeric: tabular-nums;
 }
 
-.timeline__marker {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  padding-top: 5px;
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 16px;
-    bottom: -40px;
-    width: 1px;
-    background: color.$hairline;
-  }
-}
-
-.timeline__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: color.$accent-pink;
-  flex: none;
-}
-
-.timeline__content {
+.program__body {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 7px;
 }
 
-.timeline__title {
-  font-size: 15.5px;
-  font-weight: 500;
-  color: color.$ink;
+.program__title {
+  font-family: font.$heading;
+  font-size: clamp(17px, 2vw, 21px);
+  color: color.$paper-bright;
 }
 
-.timeline__address {
-  font-size: 13.5px;
-  font-weight: 300;
-  color: color.$muted-text;
+.program__note {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: color.$smoke;
 }
 
-@media all and (max-width: 480px) {
-  .timeline__item {
-    grid-template-columns: 52px 18px 1fr;
-    column-gap: 14px;
-  }
-
-  .timeline__time {
-    font-size: 14.5px;
-  }
+.program__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: color.$wine-bright;
+  align-self: center;
+  opacity: 0.8;
 }
 </style>
