@@ -132,13 +132,8 @@ import dressCode from '@/data/dressCode';
   margin: 28px 0 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 6px;
-
-  @media all and (max-width: 420px) {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 10px;
-  }
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
 }
 
 .dress-code__swatch {
@@ -150,20 +145,16 @@ import dressCode from '@/data/dressCode';
 
 .dress-code__chip {
   display: block;
-  height: clamp(86px, 13vw, 128px);
-  // На светлом фоне пастельные образцы почти сливаются с карточкой,
-  // поэтому им нужен заметный контур.
-  border: 1px solid rgba(63, 54, 64, 0.18);
+  aspect-ratio: 1;
+  // Оттенки намеренно блёклые, поэтому форму квадрата держит контур.
+  border: 1px solid rgba(63, 54, 64, 0.16);
 }
 
 .dress-code__name {
-  font-size: 9px;
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
   color: color.$body-text;
   text-align: center;
-  // Длинные названия («Champagne») чуть выходят в межколоночный зазор —
-  // это лучше, чем обрезать их многоточием.
-  white-space: nowrap;
-  overflow: visible;
 }
 
 .dress-code__hint {

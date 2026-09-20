@@ -111,8 +111,8 @@ const shareInvitation = async () => {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 50% 50%, rgba(250, 247, 244, 0.84) 0%, rgba(250, 247, 244, 0.46) 58%, rgba(250, 247, 244, 0.26) 100%),
-    linear-gradient(180deg, rgba(246, 236, 232, 0.78) 0%, rgba(250, 247, 244, 0.42) 45%, rgba(250, 247, 244, 0.8) 100%);
+    radial-gradient(ellipse 60% 52% at 50% 48%, rgba(250, 247, 244, 0.84) 0%, rgba(250, 247, 244, 0.48) 58%, rgba(250, 247, 244, 0) 100%),
+    linear-gradient(180deg, rgba(246, 236, 232, 0.5) 0%, rgba(250, 247, 244, 0.08) 45%, rgba(250, 247, 244, 0.5) 100%);
 }
 
 .site-footer__content {

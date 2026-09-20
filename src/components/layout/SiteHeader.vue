@@ -6,8 +6,8 @@ import { BRIDE_NAME, GROOM_NAME } from '@/data/weddingConfig';
 
 const links = [
   { href: '#story', label: 'История' },
-  { href: '#program', label: 'Программа' },
   { href: '#venue', label: 'Место' },
+  { href: '#program', label: 'Программа' },
   { href: '#dresscode', label: 'Дресс-код' },
 ];
 

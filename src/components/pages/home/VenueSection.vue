@@ -111,15 +111,15 @@ const copyAddress = async () => {
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: saturate(0.38) brightness(1.0) contrast(0.96);
+  filter: saturate(0.72) brightness(0.98) contrast(1.04);
 }
 
 .venue__veil {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 34% 42%, rgba(250, 247, 244, 0.7) 0%, rgba(250, 247, 244, 0.34) 58%, rgba(250, 247, 244, 0.12) 100%),
-    linear-gradient(180deg, rgba(250, 247, 244, 0.72) 0%, rgba(250, 247, 244, 0.3) 45%, rgba(246, 236, 232, 0.72) 100%);
+    linear-gradient(90deg, rgba(250, 247, 244, 0.7) 0%, rgba(250, 247, 244, 0.48) 44%, rgba(250, 247, 244, 0.24) 78%, rgba(250, 247, 244, 0.2) 100%),
+    linear-gradient(180deg, rgba(250, 247, 244, 0.3) 0%, rgba(250, 247, 244, 0.04) 36%, rgba(250, 247, 244, 0.26) 62%, rgba(246, 236, 232, 0.5) 100%);
 }
 
 .venue__top {
@@ -139,7 +139,7 @@ const copyAddress = async () => {
 }
 
 .venue__region {
-  margin: 18px 0 0;
+  margin: 28px 0 0;
   font-size: 9.5px;
   font-weight: 500;
   letter-spacing: 0.3em;
@@ -260,6 +260,6 @@ const copyAddress = async () => {
   margin: 8px 0 0;
   font-size: 13px;
   line-height: 1.7;
-  color: color.$body-text;
+  color: color.$ink;
 }
 </style>

@@ -73,7 +73,7 @@ const pad = (value: number) => String(value).padStart(2, '0');
   grid-template-columns: 34px 62px minmax(0, 1fr) 10px;
   align-items: baseline;
   gap: 16px;
-  padding: 26px 0;
+  padding: 26px 16px;
   border-bottom: 1px solid color.$line;
   transition: background transition.$fast;
 
