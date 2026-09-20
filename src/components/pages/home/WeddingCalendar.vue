@@ -48,7 +48,7 @@ const weeks = computed<CalendarDay[][]>(() => {
 </script>
 
 <template>
-  <section id="date" class="band band--ink-soft calendar-section">
+  <section id="date" class="band band--blush calendar-section">
     <div class="shell">
       <ChapterMark index="02" label="Дата" />
 
@@ -105,7 +105,7 @@ const weeks = computed<CalendarDay[][]>(() => {
   font-family: font.$heading;
   font-size: clamp(24px, 3.4vw, 36px);
   letter-spacing: 0.22em;
-  color: color.$paper-bright;
+  color: color.$ink;
 }
 
 .calendar-section__cta {
@@ -113,9 +113,9 @@ const weeks = computed<CalendarDay[][]>(() => {
 }
 
 .calendar {
-  border: 1px solid color.$line-on-dark;
+  border: 1px solid color.$line;
   padding: clamp(24px, 3vw, 40px);
-  background: color.$ink;
+  background: color.$cream;
   max-width: 440px;
   width: 100%;
   margin-left: auto;
@@ -130,14 +130,14 @@ const weeks = computed<CalendarDay[][]>(() => {
   font-family: font.$heading;
   font-size: 19px;
   letter-spacing: 0.06em;
-  color: color.$paper-bright;
+  color: color.$ink;
 }
 
 .calendar__weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   padding-bottom: 14px;
-  border-bottom: 1px solid color.$line-on-dark;
+  border-bottom: 1px solid color.$line;
 
   span {
     text-align: center;
@@ -145,7 +145,7 @@ const weeks = computed<CalendarDay[][]>(() => {
     font-weight: 600;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: color.$smoke;
+    color: color.$soft-text;
   }
 }
 
@@ -169,18 +169,18 @@ const weeks = computed<CalendarDay[][]>(() => {
   font-size: 13px;
   font-weight: 300;
   font-variant-numeric: tabular-nums;
-  color: color.$silver;
+  color: color.$ink;
 
   &--muted {
-    color: rgba(211, 204, 191, 0.22);
+    color: rgba(63, 54, 64, 0.2);
   }
 
   &--highlighted {
     font-family: font.$heading;
     font-size: 16px;
     font-weight: 500;
-    color: color.$paper-bright;
-    background: color.$wine;
+    color: color.$cream;
+    background: color.$accent;
   }
 }
 </style>

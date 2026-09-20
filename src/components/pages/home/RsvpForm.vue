@@ -46,7 +46,6 @@ const errors = reactive<RsvpFormErrors>({
   accommodation: false,
 });
 
-const isFormOpen = ref(false);
 const isSubmitted = ref(false);
 
 const addGuest = () => {
@@ -74,7 +73,7 @@ const handleSubmit = () => {
 </script>
 
 <template>
-  <section id="rsvp" class="band band--ink rsvp">
+  <section id="rsvp" class="band band--blush rsvp">
     <span class="rsvp__arc rsvp__arc--left" aria-hidden="true" />
     <span class="rsvp__arc rsvp__arc--right" aria-hidden="true" />
 
@@ -88,100 +87,86 @@ const handleSubmit = () => {
           <p class="lede rsvp__thanks-note">Мы получили ваш ответ и очень ждём встречи.</p>
         </div>
 
-        <div v-else-if="!isFormOpen" key="cta" class="rsvp__cta">
-          <h2 v-reveal class="display rsvp__cta-title">Вы будете<br>в этом кадре?</h2>
-          <p v-reveal="80" class="rsvp__deadline">
-            Пожалуйста, заполните анкету до {{ RSVP_DEADLINE_LONG }}.
-          </p>
-
-          <button
-            v-reveal="140"
-            type="button"
-            class="btn btn--solid rsvp__open"
-            @click="isFormOpen = true"
-          >
-            Заполнить анкету
-            <ArrowRightIcon />
-          </button>
-
-          <p v-reveal="180" class="rsvp__micro">Это займёт около двух минут</p>
-        </div>
-
-        <form v-else key="form" class="rsvp__form" novalidate @submit.prevent="handleSubmit">
-          <header class="rsvp__form-head">
-            <h2 class="display display--small">Анкета гостя</h2>
-            <p class="rsvp__deadline rsvp__deadline--inline">до {{ RSVP_DEADLINE_LONG }}</p>
+        <div v-else key="form" class="rsvp__body">
+          <header class="rsvp__intro">
+            <h2 v-reveal class="display">Вы будете<br>в этом кадре?</h2>
+            <p v-reveal="80" class="rsvp__deadline">
+              Пожалуйста, заполните анкету до {{ RSVP_DEADLINE_LONG }}.
+            </p>
+            <p v-reveal="120" class="rsvp__micro">Это займёт около двух минут</p>
           </header>
 
-          <div class="rsvp__field">
-            <span class="rsvp__label">Ваше имя</span>
+          <form v-reveal="160" class="rsvp__form" novalidate @submit.prevent="handleSubmit">
+            <div class="rsvp__field">
+              <span class="rsvp__label">Ваше имя</span>
 
-            <transition-group name="list" tag="div" class="rsvp__guests">
-              <div v-for="(guest, index) in formState.guests" :key="guest.id" class="rsvp__guest-row">
-                <input
-                  v-model="guest.name"
-                  type="text"
-                  class="rsvp__input"
-                  :placeholder="index === 0 ? 'Имя и фамилия' : 'Имя гостя'"
-                >
-                <button
-                  v-if="formState.guests.length > 1"
-                  type="button"
-                  class="rsvp__remove-guest"
-                  aria-label="Удалить гостя"
-                  @click="removeGuest(guest.id)"
-                >
-                  <CloseIcon />
-                </button>
+              <transition-group name="list" tag="div" class="rsvp__guests">
+                <div v-for="(guest, index) in formState.guests" :key="guest.id" class="rsvp__guest-row">
+                  <input
+                    v-model="guest.name"
+                    type="text"
+                    class="rsvp__input"
+                    :placeholder="index === 0 ? 'Имя и фамилия' : 'Имя гостя'"
+                  >
+                  <button
+                    v-if="formState.guests.length > 1"
+                    type="button"
+                    class="rsvp__remove-guest"
+                    aria-label="Удалить гостя"
+                    @click="removeGuest(guest.id)"
+                  >
+                    <CloseIcon />
+                  </button>
+                </div>
+              </transition-group>
+
+              <button type="button" class="rsvp__add-guest" @click="addGuest">
+                <PlusIcon /> Добавить гостя
+              </button>
+              <span v-if="errors.guests" class="rsvp__error">
+                Пожалуйста, укажите имя хотя бы одного гостя
+              </span>
+            </div>
+
+            <fieldset class="rsvp__field">
+              <legend class="rsvp__label">Вы сможете присутствовать?</legend>
+              <div class="rsvp__options">
+                <label v-for="option in attendanceOptions" :key="option.value" class="rsvp__option">
+                  <input v-model="formState.attendance" type="radio" name="attendance" :value="option.value">
+                  <span>{{ option.label }}</span>
+                </label>
               </div>
-            </transition-group>
+              <span v-if="errors.attendance" class="rsvp__error">Выберите один из вариантов</span>
+            </fieldset>
 
-            <button type="button" class="rsvp__add-guest" @click="addGuest">
-              <PlusIcon /> Добавить гостя
+            <fieldset class="rsvp__field">
+              <legend class="rsvp__label">Вам нужен трансфер?</legend>
+              <div class="rsvp__options">
+                <label v-for="option in transferOptions" :key="option.value" class="rsvp__option">
+                  <input v-model="formState.transfer" type="radio" name="transfer" :value="option.value">
+                  <span>{{ option.label }}</span>
+                </label>
+              </div>
+              <span v-if="errors.transfer" class="rsvp__error">Выберите один из вариантов</span>
+            </fieldset>
+
+            <fieldset class="rsvp__field">
+              <legend class="rsvp__label">Вам нужно проживание?</legend>
+              <div class="rsvp__options">
+                <label v-for="option in accommodationOptions" :key="option.value" class="rsvp__option">
+                  <input v-model="formState.accommodation" type="radio" name="accommodation" :value="option.value">
+                  <span>{{ option.label }}</span>
+                </label>
+              </div>
+              <span v-if="errors.accommodation" class="rsvp__error">Выберите один из вариантов</span>
+            </fieldset>
+
+            <button type="submit" class="btn btn--solid rsvp__submit">
+              Отправить анкету
+              <ArrowRightIcon />
             </button>
-            <span v-if="errors.guests" class="rsvp__error">
-              Пожалуйста, укажите имя хотя бы одного гостя
-            </span>
-          </div>
-
-          <fieldset class="rsvp__field">
-            <legend class="rsvp__label">Вы сможете присутствовать?</legend>
-            <div class="rsvp__options">
-              <label v-for="option in attendanceOptions" :key="option.value" class="rsvp__option">
-                <input v-model="formState.attendance" type="radio" name="attendance" :value="option.value">
-                <span>{{ option.label }}</span>
-              </label>
-            </div>
-            <span v-if="errors.attendance" class="rsvp__error">Выберите один из вариантов</span>
-          </fieldset>
-
-          <fieldset class="rsvp__field">
-            <legend class="rsvp__label">Вам нужен трансфер?</legend>
-            <div class="rsvp__options">
-              <label v-for="option in transferOptions" :key="option.value" class="rsvp__option">
-                <input v-model="formState.transfer" type="radio" name="transfer" :value="option.value">
-                <span>{{ option.label }}</span>
-              </label>
-            </div>
-            <span v-if="errors.transfer" class="rsvp__error">Выберите один из вариантов</span>
-          </fieldset>
-
-          <fieldset class="rsvp__field">
-            <legend class="rsvp__label">Вам нужно проживание?</legend>
-            <div class="rsvp__options">
-              <label v-for="option in accommodationOptions" :key="option.value" class="rsvp__option">
-                <input v-model="formState.accommodation" type="radio" name="accommodation" :value="option.value">
-                <span>{{ option.label }}</span>
-              </label>
-            </div>
-            <span v-if="errors.accommodation" class="rsvp__error">Выберите один из вариантов</span>
-          </fieldset>
-
-          <button type="submit" class="btn btn--solid rsvp__submit">
-            Отправить анкету
-            <ArrowRightIcon />
-          </button>
-        </form>
+          </form>
+        </div>
       </transition>
     </div>
   </section>
@@ -205,7 +190,7 @@ const handleSubmit = () => {
   max-width: 760px;
   max-height: 760px;
   border-radius: 50%;
-  border: 1px solid rgba(221, 214, 201, 0.12);
+  border: 1px solid rgba(63, 54, 64, 0.08);
   pointer-events: none;
 
   &--left {
@@ -224,7 +209,6 @@ const handleSubmit = () => {
   z-index: 1;
 }
 
-.rsvp__cta,
 .rsvp__thanks {
   display: flex;
   flex-direction: column;
@@ -233,37 +217,32 @@ const handleSubmit = () => {
   padding: clamp(12px, 4vw, 48px) 0;
 }
 
-.rsvp__cta-title {
-  color: color.$paper-bright;
+.rsvp__intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .rsvp__deadline {
   margin: 24px 0 0;
   font-size: 13.5px;
-  color: color.$smoke;
-}
-
-.rsvp__open {
-  margin-top: 30px;
+  color: color.$body-text;
 }
 
 .rsvp__micro {
-  margin: 18px 0 0;
+  margin: 14px 0 0;
   font-size: 9px;
   font-weight: 500;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: rgba(141, 140, 146, 0.75);
+  color: color.$soft-text;
 }
 
 .rsvp__thanks-icon {
   font-size: 22px;
-  color: color.$wine-bright;
+  color: color.$accent-soft;
   margin-bottom: 26px;
-}
-
-.rsvp__thanks .display--small {
-  color: color.$paper-bright;
 }
 
 .rsvp__thanks-note {
@@ -274,35 +253,13 @@ const handleSubmit = () => {
 .rsvp__form {
   width: 100%;
   max-width: 620px;
-  margin: 0 auto;
+  margin: clamp(40px, 6vw, 64px) auto 0;
   padding: clamp(28px, 4vw, 48px);
-  border: 1px solid color.$line-on-dark;
-  background: color.$ink-soft;
+  border: 1px solid color.$line;
+  background: color.$cream;
   display: flex;
   flex-direction: column;
   gap: 34px;
-}
-
-.rsvp__form-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  padding-bottom: 26px;
-  border-bottom: 1px solid color.$line-on-dark;
-
-  .display--small {
-    color: color.$paper-bright;
-  }
-}
-
-.rsvp__deadline--inline {
-  margin: 0;
-  font-size: 9.5px;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
 }
 
 .rsvp__field {
@@ -320,7 +277,7 @@ const handleSubmit = () => {
   font-size: 9.5px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: color.$smoke;
+  color: color.$soft-text;
   margin-bottom: 18px;
 }
 
@@ -341,21 +298,21 @@ const handleSubmit = () => {
   min-width: 0;
   padding: 13px 2px;
   border: none;
-  border-bottom: 1px solid color.$line-on-dark;
+  border-bottom: 1px solid color.$line;
   background: transparent;
   border-radius: 0;
   font-family: inherit;
   font-size: 15px;
-  color: color.$paper-bright;
+  color: color.$ink;
   transition: border-color transition.$fast;
 
   &::placeholder {
-    color: rgba(141, 140, 146, 0.6);
+    color: rgba(128, 117, 132, 0.7);
   }
 
   &:focus {
     outline: none;
-    border-color: color.$wine-bright;
+    border-color: color.$accent;
   }
 }
 
@@ -365,7 +322,7 @@ const handleSubmit = () => {
   height: 32px;
   border: none;
   background: none;
-  color: color.$smoke;
+  color: color.$soft-text;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -373,7 +330,7 @@ const handleSubmit = () => {
   transition: color transition.$fast;
 
   &:hover {
-    color: color.$wine-bright;
+    color: color.$accent;
   }
 }
 
@@ -386,7 +343,7 @@ const handleSubmit = () => {
   border: none;
   background: none;
   padding: 0;
-  color: color.$silver;
+  color: color.$accent;
   font-family: inherit;
   font-size: 9.5px;
   font-weight: 600;
@@ -400,7 +357,7 @@ const handleSubmit = () => {
   }
 
   &:hover {
-    color: color.$paper-bright;
+    color: color.$ink;
   }
 }
 
@@ -415,24 +372,21 @@ const handleSubmit = () => {
   align-items: center;
   gap: 12px;
   padding: 14px 16px;
-  border: 1px solid color.$line-on-dark;
+  border: 1px solid color.$line;
   border-radius: 2px;
   font-size: 14px;
-  color: color.$silver;
+  color: color.$body-text;
   cursor: pointer;
   transition: border-color transition.$fast, background transition.$fast, color transition.$fast;
 
   &:has(input:checked) {
-    border-color: color.$wine-bright;
-    background: rgba(162, 47, 64, 0.12);
-    color: color.$paper-bright;
+    border-color: color.$accent-soft;
+    background: color.$accent-pale;
+    color: color.$ink;
   }
 
   input {
-    // Нативные радио на тёмном фоне иначе рисуются белым «залитым» кружком
-    // и выглядят как уже выбранные.
-    color-scheme: dark;
-    accent-color: color.$wine-bright;
+    accent-color: color.$accent;
     width: 15px;
     height: 15px;
     flex: none;
@@ -442,7 +396,7 @@ const handleSubmit = () => {
 .rsvp__error {
   margin-top: 12px;
   font-size: 12px;
-  color: color.$wine-bright;
+  color: color.$accent;
 }
 
 .rsvp__submit {

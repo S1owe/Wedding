@@ -4,7 +4,7 @@ import EnvelopeIcon from '@icons/EnvelopeIcon.vue';
 </script>
 
 <template>
-  <section id="gifts" class="band band--paper gifts">
+  <section id="gifts" class="band band--mist gifts">
     <div class="shell">
       <ChapterMark index="05" label="О подарках" />
 
@@ -39,20 +39,20 @@ import EnvelopeIcon from '@icons/EnvelopeIcon.vue';
 
 .gifts__note {
   padding: clamp(28px, 4vw, 44px);
-  border: 1px solid color.$line-on-light;
-  background: color.$paper-bright;
+  border: 1px solid color.$line;
+  background: color.$cream;
 }
 
 .gifts__icon {
   font-size: 20px;
-  color: color.$wine;
+  color: color.$accent;
 }
 
 .gifts__text {
   margin: 22px 0 0;
   font-size: 15px;
   line-height: 1.85;
-  color: color.$muted-text;
+  color: color.$body-text;
 }
 
 .gifts__rule {
@@ -61,6 +61,5 @@ import EnvelopeIcon from '@icons/EnvelopeIcon.vue';
 
 .gifts__aside {
   margin: 0;
-  color: color.$ink;
 }
 </style>

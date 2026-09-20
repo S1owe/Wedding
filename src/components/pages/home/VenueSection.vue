@@ -39,7 +39,7 @@ const copyAddress = async () => {
   <section id="venue" class="band band--photo venue">
     <div class="venue__media" aria-hidden="true">
       <img class="venue__img" src="/images/venue-uryupinsk.jpg" alt="" loading="lazy">
-      <span class="venue__scrim" />
+      <span class="venue__veil" />
     </div>
 
     <div class="shell venue__shell">
@@ -111,15 +111,15 @@ const copyAddress = async () => {
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: saturate(0.42) brightness(1.05) contrast(1.02);
+  filter: saturate(0.38) brightness(1.0) contrast(0.96);
 }
 
-.venue__scrim {
+.venue__veil {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(11, 12, 18, 0.9) 0%, rgba(11, 12, 18, 0.58) 45%, rgba(11, 12, 18, 0.92) 100%),
-    radial-gradient(ellipse at 34% 42%, rgba(6, 7, 11, 0.05), rgba(6, 7, 11, 0.58) 100%);
+    radial-gradient(ellipse at 34% 42%, rgba(250, 247, 244, 0.7) 0%, rgba(250, 247, 244, 0.34) 58%, rgba(250, 247, 244, 0.12) 100%),
+    linear-gradient(180deg, rgba(250, 247, 244, 0.72) 0%, rgba(250, 247, 244, 0.3) 45%, rgba(246, 236, 232, 0.72) 100%);
 }
 
 .venue__top {
@@ -136,7 +136,6 @@ const copyAddress = async () => {
 
 .venue__title {
   font-size: clamp(46px, 9vw, 110px);
-  color: color.$paper-bright;
 }
 
 .venue__region {
@@ -145,18 +144,17 @@ const copyAddress = async () => {
   font-weight: 500;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(232, 225, 214, 0.6);
+  color: color.$soft-text;
 }
 
 .venue__note {
   margin-top: 24px;
-  color: rgba(211, 204, 191, 0.88);
 }
 
 .venue__card {
   padding: clamp(26px, 3vw, 36px);
-  border: 1px solid color.$line-on-dark;
-  background: rgba(11, 12, 18, 0.72);
+  border: 1px solid color.$line;
+  background: rgba(250, 247, 244, 0.86);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 
@@ -167,7 +165,7 @@ const copyAddress = async () => {
 
 .venue__card-icon {
   font-size: 18px;
-  color: rgba(232, 225, 214, 0.7);
+  color: color.$accent;
 }
 
 .venue__card-label {
@@ -176,7 +174,7 @@ const copyAddress = async () => {
   font-weight: 600;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: color.$smoke;
+  color: color.$soft-text;
 }
 
 .venue__card-city {
@@ -184,13 +182,13 @@ const copyAddress = async () => {
   font-family: font.$heading;
   font-size: clamp(24px, 3vw, 32px);
   line-height: 1.12;
-  color: color.$paper-bright;
+  color: color.$ink;
 }
 
 .venue__card-region {
   margin: 8px 0 0;
   font-size: 13px;
-  color: color.$smoke;
+  color: color.$body-text;
 }
 
 .venue__route {
@@ -206,7 +204,7 @@ const copyAddress = async () => {
   justify-content: center;
   gap: 8px;
   padding: 12px;
-  border: 1px solid color.$line-on-dark;
+  border: 1px solid color.$line;
   border-radius: 2px;
   background: transparent;
   font-family: inherit;
@@ -214,7 +212,7 @@ const copyAddress = async () => {
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: color.$smoke;
+  color: color.$soft-text;
   cursor: pointer;
   transition: color transition.$fast, border-color transition.$fast;
 
@@ -223,8 +221,8 @@ const copyAddress = async () => {
   }
 
   &:hover {
-    color: color.$paper-bright;
-    border-color: rgba(221, 214, 201, 0.4);
+    color: color.$ink;
+    border-color: color.$accent-soft;
   }
 }
 
@@ -248,20 +246,20 @@ const copyAddress = async () => {
 
 .venue__fact-icon {
   font-size: 17px;
-  color: rgba(232, 225, 214, 0.62);
+  color: color.$accent;
 }
 
 .venue__fact-title {
   margin: 18px 0 0;
   font-family: font.$heading;
   font-size: 19px;
-  color: color.$paper-bright;
+  color: color.$ink;
 }
 
 .venue__fact-line {
   margin: 8px 0 0;
   font-size: 13px;
   line-height: 1.7;
-  color: color.$smoke;
+  color: color.$body-text;
 }
 </style>

@@ -4,7 +4,7 @@ import { COUPLE_SHORT, WEDDING_DATE_LABEL } from '@/data/weddingConfig';
 </script>
 
 <template>
-  <section id="story" class="band band--paper story">
+  <section id="story" class="band band--cream story">
     <div class="shell">
       <ChapterMark index="01" label="Наша история" />
 
@@ -35,7 +35,7 @@ import { COUPLE_SHORT, WEDDING_DATE_LABEL } from '@/data/weddingConfig';
         <figure v-reveal="120" class="story__figure">
           <span class="story__frame" aria-hidden="true" />
           <div class="story__photo">
-            <img src="/images/story-hands.jpg" alt="Жених и невеста держатся за руки" loading="lazy">
+            <img src="/images/story-bouquet.jpg" alt="Букет невесты из пудровых роз и гортензии" loading="lazy">
           </div>
           <figcaption class="story__caption">
             <span>{{ WEDDING_DATE_LABEL }}</span>
@@ -68,7 +68,7 @@ import { COUPLE_SHORT, WEDDING_DATE_LABEL } from '@/data/weddingConfig';
     display: block;
     margin-top: 18px;
     font-size: 11.5px;
-    color: color.$muted-text;
+    color: color.$soft-text;
   }
 }
 
@@ -77,7 +77,7 @@ import { COUPLE_SHORT, WEDDING_DATE_LABEL } from '@/data/weddingConfig';
   font-family: font.$heading;
   font-style: italic;
   font-size: clamp(20px, 2.6vw, 26px);
-  color: color.$wine;
+  color: color.$accent;
 }
 
 .story__figure {
@@ -97,14 +97,14 @@ import { COUPLE_SHORT, WEDDING_DATE_LABEL } from '@/data/weddingConfig';
   left: 0;
   width: 46%;
   height: 34%;
-  border-top: 1px solid rgba(104, 31, 46, 0.5);
-  border-left: 1px solid rgba(104, 31, 46, 0.5);
+  border-top: 1px solid color.$accent-soft;
+  border-left: 1px solid color.$accent-soft;
 }
 
 .story__photo {
   position: relative;
   overflow: hidden;
-  background: color.$ink;
+  background: color.$cream-deep;
   aspect-ratio: 3 / 4;
 
   img {
@@ -129,7 +129,7 @@ import { COUPLE_SHORT, WEDDING_DATE_LABEL } from '@/data/weddingConfig';
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: color.$muted-text;
+  color: color.$soft-text;
 }
 
 @media (prefers-reduced-motion: reduce) {

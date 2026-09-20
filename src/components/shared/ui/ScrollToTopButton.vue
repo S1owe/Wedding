@@ -51,18 +51,19 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  border: 1px solid color.$line-on-dark;
-  background: rgba(11, 12, 18, 0.72);
+  border: 1px solid color.$line;
+  background: rgba(250, 247, 244, 0.86);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  color: color.$paper-bright;
+  color: color.$ink;
   font-size: 16px;
   cursor: pointer;
   transition: background transition.$fast, border-color transition.$fast;
 
   &:hover {
     background: color.$ink;
-    border-color: rgba(221, 214, 201, 0.42);
+    color: color.$cream;
+    border-color: color.$ink;
   }
 }
 </style>

@@ -6,7 +6,7 @@ const pad = (value: number) => String(value).padStart(2, '0');
 </script>
 
 <template>
-  <section id="program" class="band band--ink program">
+  <section id="program" class="band band--cream program">
     <div class="shell">
       <ChapterMark index="04" label="Программа" />
 
@@ -65,7 +65,7 @@ const pad = (value: number) => String(value).padStart(2, '0');
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: 1px solid color.$line-on-dark;
+  border-top: 1px solid color.$line;
 }
 
 .program__item {
@@ -74,11 +74,11 @@ const pad = (value: number) => String(value).padStart(2, '0');
   align-items: baseline;
   gap: 16px;
   padding: 26px 0;
-  border-bottom: 1px solid color.$line-on-dark;
+  border-bottom: 1px solid color.$line;
   transition: background transition.$fast;
 
   &:hover {
-    background: rgba(232, 225, 214, 0.03);
+    background: rgba(63, 54, 64, 0.025);
   }
 
   @media all and (max-width: 520px) {
@@ -95,14 +95,13 @@ const pad = (value: number) => String(value).padStart(2, '0');
   font-size: 9px;
   font-weight: 500;
   letter-spacing: 0.18em;
-  color: color.$smoke;
-  opacity: 0.7;
+  color: color.$soft-text;
 }
 
 .program__time {
   font-family: font.$heading;
   font-size: clamp(19px, 2.4vw, 25px);
-  color: color.$paper-bright;
+  color: color.$ink;
   font-variant-numeric: tabular-nums;
 }
 
@@ -115,21 +114,20 @@ const pad = (value: number) => String(value).padStart(2, '0');
 .program__title {
   font-family: font.$heading;
   font-size: clamp(17px, 2vw, 21px);
-  color: color.$paper-bright;
+  color: color.$ink;
 }
 
 .program__note {
   font-size: 12.5px;
   line-height: 1.6;
-  color: color.$smoke;
+  color: color.$body-text;
 }
 
 .program__dot {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: color.$wine-bright;
+  background: color.$accent-soft;
   align-self: center;
-  opacity: 0.8;
 }
 </style>

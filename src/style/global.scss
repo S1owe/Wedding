@@ -68,8 +68,8 @@ html {
 body {
   padding: 0;
   margin: 0;
-  background: color.$ink;
-  color: color.$silver;
+  background: color.$cream;
+  color: color.$body-text;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
@@ -97,8 +97,8 @@ a {
 }
 
 ::selection {
-  background: color.$wine;
-  color: color.$paper-bright;
+  background: color.$accent-pale;
+  color: color.$ink;
 }
 
 /* ---------- scroll reveal (v-reveal) ---------- */
@@ -129,29 +129,20 @@ a {
 
 /* ---------- layout ---------- */
 
-// Чередование светлых и тёмных полос — основа ритма всей страницы.
+// Чередование близких пастельных тонов — основа ритма всей страницы.
+// Схема текста одна на всём сайте, меняется только фон полосы.
 .band {
   position: relative;
   padding: clamp(80px, 11vw, 160px) 0;
+  background: color.$cream;
 
-  &--ink {
-    background: color.$ink;
-    color: color.$silver;
-  }
-
-  &--ink-soft {
-    background: color.$ink-soft;
-    color: color.$silver;
-  }
-
-  &--paper {
-    background: color.$paper;
-    color: color.$ink;
-  }
+  &--cream { background: color.$cream; }
+  &--blush { background: color.$blush; }
+  &--mist { background: color.$mist; }
+  &--sage { background: color.$sage; }
 
   &--photo {
-    background: color.$ink;
-    color: color.$silver;
+    background: color.$cream;
     overflow: hidden;
   }
 }
@@ -187,7 +178,7 @@ a {
   font-weight: 500;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: color.$smoke;
+  color: color.$soft-text;
   margin-bottom: clamp(36px, 6vw, 72px);
 
   i {
@@ -196,25 +187,14 @@ a {
   }
 }
 
-.band--paper .chapter-mark {
-  color: color.$muted-text;
-}
-
 .eyebrow {
   display: block;
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: color.$wine-bright;
+  color: color.$accent;
   margin: 0 0 22px;
-}
-
-.band--ink .eyebrow,
-.band--ink-soft .eyebrow,
-.band--photo .eyebrow {
-  color: color.$silver;
-  opacity: 0.68;
 }
 
 .display {
@@ -223,6 +203,7 @@ a {
   font-size: clamp(38px, 6.2vw, 78px);
   line-height: 1.02;
   letter-spacing: -0.015em;
+  color: color.$ink;
   margin: 0;
 }
 
@@ -237,13 +218,7 @@ a {
   font-size: 15px;
   line-height: 1.85;
   font-weight: 400;
-  color: color.$muted-text;
-}
-
-.band--ink .lede,
-.band--ink-soft .lede,
-.band--photo .lede {
-  color: color.$smoke;
+  color: color.$body-text;
 }
 
 .serif-note {
@@ -251,19 +226,14 @@ a {
   font-style: italic;
   font-size: clamp(16px, 2vw, 19px);
   line-height: 1.6;
+  color: color.$ink;
 }
 
 .hairline {
   height: 1px;
   border: 0;
   margin: 0;
-  background: color.$line-on-light;
-}
-
-.band--ink .hairline,
-.band--ink-soft .hairline,
-.band--photo .hairline {
-  background: color.$line-on-dark;
+  background: color.$line;
 }
 
 /* ---------- buttons ---------- */
@@ -302,62 +272,52 @@ a {
   }
 }
 
-// Светлая заливка — основной призыв к действию на тёмном фоне.
+// Основное действие — плотная заливка глубоким сливовым.
 .btn--solid {
-  background: color.$paper-bright;
-  color: color.$ink;
-  border-color: color.$paper-bright;
+  background: color.$ink;
+  color: color.$cream;
+  border-color: color.$ink;
 
   &:hover {
-    background: color.$paper;
-    border-color: color.$paper;
+    background: color.$accent;
+    border-color: color.$accent;
   }
 }
 
 // Прозрачная кнопка с тонкой рамкой.
 .btn--ghost {
-  background: rgba(11, 12, 18, 0.45);
-  color: color.$paper-bright;
-  border-color: color.$line-on-dark;
-
-  &:hover {
-    background: rgba(11, 12, 18, 0.72);
-    border-color: rgba(221, 214, 201, 0.42);
-  }
-}
-
-// Тёмная кнопка для светлых полос.
-.btn--ink {
-  background: color.$ink;
-  color: color.$paper-bright;
-  border-color: color.$ink;
-
-  &:hover {
-    background: color.$ink-soft;
-  }
-}
-
-.btn--wine {
-  background: color.$wine;
-  color: color.$paper-bright;
-  border-color: color.$wine;
-
-  &:hover {
-    background: color.$wine-bright;
-    border-color: color.$wine-bright;
-  }
-}
-
-// Текстовая кнопка без фона — вторичное действие на светлом фоне.
-.btn--quiet {
   background: transparent;
-  color: color.$muted-text;
-  border-color: transparent;
-  padding-left: 12px;
-  padding-right: 12px;
+  color: color.$ink;
+  border-color: color.$line;
 
   &:hover {
-    color: color.$ink;
+    background: rgba(63, 54, 64, 0.05);
+    border-color: rgba(63, 54, 64, 0.26);
+  }
+}
+
+// Акцентная — пыльная роза.
+.btn--accent {
+  background: color.$accent;
+  color: color.$cream;
+  border-color: color.$accent;
+
+  &:hover {
+    background: color.$ink;
+    border-color: color.$ink;
+  }
+}
+
+// Светлая заливка для кнопок поверх фотографии.
+.btn--paper {
+  background: color.$cream;
+  color: color.$ink;
+  border-color: color.$cream;
+
+  &:hover {
+    background: color.$ink;
+    color: color.$cream;
+    border-color: color.$ink;
   }
 }
 

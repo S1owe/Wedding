@@ -24,7 +24,7 @@ const copyContact = async () => {
 </script>
 
 <template>
-  <section id="surprises" class="band band--ink-soft surprises">
+  <section id="surprises" class="band band--sage surprises">
     <div class="shell">
       <ChapterMark index="07" label="Сюрпризы" />
 
@@ -62,8 +62,8 @@ const copyContact = async () => {
 
 .surprises__panel {
   padding: clamp(28px, 4vw, 44px);
-  border: 1px solid color.$line-on-dark;
-  background: color.$ink;
+  border: 1px solid color.$line;
+  background: color.$cream;
 }
 
 .surprises__text {
@@ -78,24 +78,24 @@ const copyContact = async () => {
   justify-content: space-between;
   gap: 14px;
   padding: 18px 22px;
-  border: 1px solid color.$line-on-dark;
+  border: 1px solid color.$line;
   border-radius: 2px;
   background: transparent;
   font-family: font.$heading;
   font-size: clamp(17px, 2.2vw, 22px);
-  color: color.$paper-bright;
+  color: color.$ink;
   cursor: pointer;
   transition: border-color transition.$fast, background transition.$fast;
 
   svg {
     font-size: 16px;
-    color: color.$smoke;
+    color: color.$soft-text;
     flex: none;
   }
 
   &:hover {
-    border-color: rgba(221, 214, 201, 0.42);
-    background: rgba(232, 225, 214, 0.04);
+    border-color: color.$accent-soft;
+    background: rgba(140, 84, 100, 0.04);
   }
 }
 
@@ -105,6 +105,6 @@ const copyContact = async () => {
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: color.$smoke;
+  color: color.$soft-text;
 }
 </style>

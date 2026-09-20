@@ -14,7 +14,7 @@ const pad = (value: number) => String(value).padStart(2, '0');
 </script>
 
 <template>
-  <section id="faq" class="band band--paper faq">
+  <section id="faq" class="band band--cream faq">
     <div class="shell">
       <ChapterMark index="08" label="Важные детали" />
 
@@ -62,11 +62,11 @@ const pad = (value: number) => String(value).padStart(2, '0');
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: 1px solid color.$line-on-light;
+  border-top: 1px solid color.$line;
 }
 
 .faq__item {
-  border-bottom: 1px solid color.$line-on-light;
+  border-bottom: 1px solid color.$line;
 }
 
 .faq__question {
@@ -87,8 +87,7 @@ const pad = (value: number) => String(value).padStart(2, '0');
   font-size: 9px;
   font-weight: 500;
   letter-spacing: 0.18em;
-  color: color.$muted-text;
-  opacity: 0.7;
+  color: color.$soft-text;
 }
 
 .faq__question-text {
@@ -98,7 +97,7 @@ const pad = (value: number) => String(value).padStart(2, '0');
 
 .faq__chevron {
   font-size: 17px;
-  color: color.$muted-text;
+  color: color.$soft-text;
   transition: transform transition.$fast;
 }
 
@@ -123,7 +122,7 @@ const pad = (value: number) => String(value).padStart(2, '0');
   padding-left: 44px;
   font-size: 14px;
   line-height: 1.8;
-  color: color.$muted-text;
+  color: color.$body-text;
 
   @media all and (max-width: 520px) {
     padding-left: 0;

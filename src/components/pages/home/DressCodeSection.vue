@@ -4,7 +4,7 @@ import dressCode from '@/data/dressCode';
 </script>
 
 <template>
-  <section id="dresscode" class="band band--paper dress-code">
+  <section id="dresscode" class="band band--cream dress-code">
     <div class="shell">
       <ChapterMark index="06" label="Дресс-код" />
 
@@ -70,7 +70,7 @@ import dressCode from '@/data/dressCode';
   max-width: 460px;
 
   > div {
-    border-top: 1px solid color.$line-on-light;
+    border-top: 1px solid color.$line;
     padding-top: 16px;
   }
 
@@ -86,14 +86,14 @@ import dressCode from '@/data/dressCode';
   font-weight: 600;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: color.$wine;
+  color: color.$accent;
 }
 
 .dress-code__advice-text {
   margin: 10px 0 0;
   font-size: 13px;
   line-height: 1.7;
-  color: color.$muted-text;
+  color: color.$body-text;
 }
 
 .dress-code__card-wrap {
@@ -108,14 +108,14 @@ import dressCode from '@/data/dressCode';
   bottom: 0;
   width: calc(100% - 34px);
   height: calc(100% - 34px);
-  background: color.$paper-shade;
+  background: color.$blush;
 }
 
 .dress-code__card {
   position: relative;
   padding: clamp(26px, 3.4vw, 40px);
-  background: color.$paper-bright;
-  border: 1px solid color.$line-on-light;
+  background: #ffffff;
+  border: 1px solid color.$line;
 }
 
 .dress-code__card-label {
@@ -124,7 +124,7 @@ import dressCode from '@/data/dressCode';
   font-weight: 600;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: color.$muted-text;
+  color: color.$soft-text;
 }
 
 .dress-code__palette {
@@ -151,12 +151,14 @@ import dressCode from '@/data/dressCode';
 .dress-code__chip {
   display: block;
   height: clamp(86px, 13vw, 128px);
-  border: 1px solid rgba(11, 12, 18, 0.08);
+  // На светлом фоне пастельные образцы почти сливаются с карточкой,
+  // поэтому им нужен заметный контур.
+  border: 1px solid rgba(63, 54, 64, 0.18);
 }
 
 .dress-code__name {
-  font-size: 8.5px;
-  color: color.$muted-text;
+  font-size: 9px;
+  color: color.$body-text;
   text-align: center;
   // Длинные названия («Champagne») чуть выходят в межколоночный зазор —
   // это лучше, чем обрезать их многоточием.
@@ -172,7 +174,7 @@ import dressCode from '@/data/dressCode';
 
   i {
     font-style: normal;
-    color: color.$wine;
+    color: color.$accent;
     font-size: 12px;
     line-height: 1.7;
   }

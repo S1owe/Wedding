@@ -45,8 +45,8 @@ const shareInvitation = async () => {
   <footer class="site-footer">
     <section class="site-footer__hero">
       <div class="site-footer__media" aria-hidden="true">
-        <img class="site-footer__img" src="/images/hero-couple.jpg" alt="" loading="lazy">
-        <span class="site-footer__scrim" />
+        <img class="site-footer__img" src="/images/hero-rings.jpg" alt="" loading="lazy">
+        <span class="site-footer__veil" />
       </div>
 
       <div class="site-footer__content">
@@ -90,7 +90,7 @@ const shareInvitation = async () => {
   align-items: center;
   justify-content: center;
   padding: clamp(80px, 12vw, 150px) clamp(20px, 5vw, 64px);
-  background: color.$ink;
+  background: color.$cream;
   overflow: hidden;
 }
 
@@ -107,12 +107,12 @@ const shareInvitation = async () => {
   display: block;
 }
 
-.site-footer__scrim {
+.site-footer__veil {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(11, 12, 18, 0.9) 0%, rgba(11, 12, 18, 0.46) 45%, rgba(11, 12, 18, 0.94) 100%),
-    radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(6, 7, 11, 0.66) 100%);
+    radial-gradient(ellipse at 50% 50%, rgba(250, 247, 244, 0.84) 0%, rgba(250, 247, 244, 0.46) 58%, rgba(250, 247, 244, 0.26) 100%),
+    linear-gradient(180deg, rgba(246, 236, 232, 0.78) 0%, rgba(250, 247, 244, 0.42) 45%, rgba(250, 247, 244, 0.8) 100%);
 }
 
 .site-footer__content {
@@ -130,7 +130,7 @@ const shareInvitation = async () => {
   font-weight: 600;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: rgba(232, 225, 214, 0.68);
+  color: color.$accent;
 }
 
 .site-footer__names {
@@ -139,11 +139,11 @@ const shareInvitation = async () => {
   font-size: clamp(34px, 7vw, 76px);
   line-height: 1.04;
   letter-spacing: -0.02em;
-  color: color.$paper-bright;
+  color: color.$ink;
 
   i {
     font-style: italic;
-    color: rgba(232, 225, 214, 0.5);
+    color: color.$accent-soft;
     padding: 0 0.18em;
   }
 }
@@ -154,7 +154,7 @@ const shareInvitation = async () => {
   font-weight: 300;
   letter-spacing: 0.4em;
   text-indent: 0.4em;
-  color: rgba(232, 225, 214, 0.86);
+  color: color.$ink;
 }
 
 .site-footer__actions {
@@ -166,8 +166,8 @@ const shareInvitation = async () => {
 }
 
 .site-footer__bar {
-  background: color.$ink-deep;
-  border-top: 1px solid color.$line-on-dark;
+  background: color.$blush;
+  border-top: 1px solid color.$line;
   padding: 26px 0;
 }
 
@@ -186,6 +186,6 @@ const shareInvitation = async () => {
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: color.$smoke;
+  color: color.$soft-text;
 }
 </style>

@@ -44,7 +44,7 @@ onBeforeUnmount(() => {
       </nav>
 
       <div class="site-header__actions">
-        <a class="btn btn--ghost site-header__cta" href="#rsvp" @click="closeMenu">Ответить</a>
+        <a class="btn btn--solid site-header__cta" href="#rsvp" @click="closeMenu">Ответить</a>
         <button
           type="button"
           class="site-header__burger"
@@ -85,10 +85,10 @@ onBeforeUnmount(() => {
               backdrop-filter transition.$medium;
 
   &--solid {
-    background: rgba(11, 12, 18, 0.82);
+    background: rgba(250, 247, 244, 0.88);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom-color: color.$line-on-dark;
+    border-bottom-color: color.$line;
   }
 }
 
@@ -107,7 +107,7 @@ onBeforeUnmount(() => {
   font-family: font.$heading;
   font-size: 15px;
   letter-spacing: 0.18em;
-  color: color.$paper-bright;
+  color: color.$ink;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -122,9 +122,9 @@ onBeforeUnmount(() => {
     font-weight: 500;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: color.$silver;
+    color: color.$ink;
     text-decoration: none;
-    opacity: 0.72;
+    opacity: 0.66;
     transition: opacity transition.$fast;
 
     &:hover {
@@ -157,10 +157,10 @@ onBeforeUnmount(() => {
   height: 38px;
   align-items: center;
   justify-content: center;
-  border: 1px solid color.$line-on-dark;
+  border: 1px solid color.$line;
   border-radius: 2px;
   background: transparent;
-  color: color.$paper-bright;
+  color: color.$ink;
   font-size: 17px;
   cursor: pointer;
 
@@ -173,22 +173,22 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   padding: 8px clamp(16px, 4vw, 40px) 24px;
-  border-top: 1px solid color.$line-on-dark;
+  border-top: 1px solid color.$line;
 
   a {
     padding: 15px 0;
-    border-bottom: 1px solid color.$line-on-dark;
+    border-bottom: 1px solid color.$line;
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: color.$silver;
+    color: color.$ink;
     text-decoration: none;
   }
 }
 
 .site-header__drawer-cta {
-  color: color.$paper-bright !important;
+  color: color.$accent !important;
   border-bottom: none !important;
 }
 </style>

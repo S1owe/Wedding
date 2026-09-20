@@ -22,9 +22,8 @@ const { parts } = useCountdown(
 <template>
   <section id="top" class="hero">
     <div class="hero__media">
-      <img class="hero__img" src="/images/hero-couple.jpg" alt="" fetchpriority="high">
-      <span class="hero__scrim" />
-      <span class="hero__vignette" />
+      <img class="hero__img" src="/images/hero-rings.jpg" alt="" fetchpriority="high">
+      <span class="hero__veil" />
     </div>
 
     <p class="hero__chapter">
@@ -81,7 +80,7 @@ const { parts } = useCountdown(
   align-items: center;
   justify-content: center;
   padding: 110px clamp(20px, 5vw, 64px) 120px;
-  background: color.$ink;
+  background: color.$cream;
   overflow: hidden;
 }
 
@@ -95,23 +94,18 @@ const { parts } = useCountdown(
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 38%;
+  object-position: center 42%;
   display: block;
 }
 
-// Основной затемняющий слой — гарантирует контраст для белой типографики.
-.hero__scrim {
+// Кремовая вуаль поверх фотографии: снимок остаётся узнаваемым,
+// но уходит на второй план, и тёмная типографика читается поверх него.
+.hero__veil {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(11, 12, 18, 0.86) 0%, rgba(11, 12, 18, 0.34) 38%, rgba(11, 12, 18, 0.9) 100%);
-}
-
-// Виньетка по краям — «киношный» объём.
-.hero__vignette {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 50% 45%, transparent 28%, rgba(6, 7, 11, 0.72) 100%);
+    radial-gradient(ellipse at 50% 46%, rgba(250, 247, 244, 0.82) 0%, rgba(250, 247, 244, 0.42) 58%, rgba(250, 247, 244, 0.2) 100%),
+    linear-gradient(180deg, rgba(250, 247, 244, 0.72) 0%, rgba(250, 247, 244, 0.32) 42%, rgba(246, 236, 232, 0.78) 100%);
 }
 
 .hero__chapter,
@@ -134,12 +128,12 @@ const { parts } = useCountdown(
   font-weight: 500;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: rgba(232, 225, 214, 0.62);
+  color: color.$soft-text;
 
   i {
     width: 40px;
     height: 1px;
-    background: rgba(232, 225, 214, 0.34);
+    background: color.$line;
   }
 
   @media all and (max-width: 720px) {
@@ -161,7 +155,7 @@ const { parts } = useCountdown(
   font-weight: 600;
   letter-spacing: 0.34em;
   text-transform: uppercase;
-  color: rgba(232, 225, 214, 0.72);
+  color: color.$accent;
 }
 
 .hero__names {
@@ -170,13 +164,12 @@ const { parts } = useCountdown(
   font-size: clamp(42px, 9.5vw, 104px);
   line-height: 1;
   letter-spacing: -0.02em;
-  color: color.$paper-bright;
-  text-shadow: 0 10px 46px rgba(6, 7, 11, 0.6);
+  color: color.$ink;
 
   i {
     font-style: italic;
     font-weight: 400;
-    color: rgba(232, 225, 214, 0.55);
+    color: color.$accent-soft;
     padding: 0 0.16em;
   }
 
@@ -196,16 +189,16 @@ const { parts } = useCountdown(
 .hero__date {
   margin: 26px 0 0;
   font-size: clamp(13px, 2.2vw, 17px);
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.42em;
   text-indent: 0.42em;
-  color: color.$paper-bright;
+  color: color.$ink;
 }
 
 .hero__tagline {
   margin: 18px 0 0;
   max-width: 34ch;
-  color: rgba(232, 225, 214, 0.78);
+  color: color.$body-text;
 }
 
 .hero__actions {
@@ -226,7 +219,7 @@ const { parts } = useCountdown(
   font-weight: 500;
   letter-spacing: 0.34em;
   text-transform: uppercase;
-  color: rgba(232, 225, 214, 0.5);
+  color: color.$soft-text;
 
   &::after {
     content: '';
@@ -234,7 +227,7 @@ const { parts } = useCountdown(
     width: 1px;
     height: 46px;
     margin: 14px auto 0;
-    background: linear-gradient(180deg, rgba(232, 225, 214, 0.5), transparent);
+    background: linear-gradient(180deg, rgba(63, 54, 64, 0.3), transparent);
   }
 
   @media all and (max-width: 900px) {
@@ -249,13 +242,13 @@ const { parts } = useCountdown(
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  color: color.$paper-bright;
+  color: color.$ink;
 
   em {
     font-style: normal;
     font-size: 15px;
     line-height: 1.6;
-    opacity: 0.4;
+    color: color.$accent-soft;
   }
 
   @media all and (max-width: 720px) {
@@ -286,7 +279,7 @@ const { parts } = useCountdown(
     font-size: 8px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    opacity: 0.55;
+    color: color.$soft-text;
   }
 }
 </style>

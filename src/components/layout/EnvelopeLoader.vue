@@ -91,16 +91,16 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: color.$ink;
+  background: color.$cream;
   transition: opacity 0.7s ease, visibility 0.7s ease;
 
-  // Мягкая виньетка, чтобы конверт читался как освещённый предмет в темноте.
+  // Мягкое кремовое свечение вокруг конверта.
   &::after {
     content: '';
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: radial-gradient(ellipse at 50% 46%, rgba(232, 225, 214, 0.07), transparent 58%);
+    background: radial-gradient(ellipse at 50% 46%, rgba(246, 236, 232, 0.9), transparent 62%);
   }
 
   &--closing {
@@ -125,7 +125,7 @@ onBeforeUnmount(() => {
   font-weight: 600;
   letter-spacing: 0.34em;
   text-transform: uppercase;
-  color: rgba(232, 225, 214, 0.55);
+  color: color.$accent;
 }
 
 .loader__hint {
@@ -133,7 +133,7 @@ onBeforeUnmount(() => {
   font-size: 9px;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: color.$smoke;
+  color: color.$soft-text;
   animation: loaderPulse 2s ease-in-out infinite;
 }
 
@@ -155,8 +155,8 @@ onBeforeUnmount(() => {
   position: absolute;
   inset: 0;
   border-radius: 2px;
-  background: color.$paper;
-  box-shadow: 0 40px 70px -30px rgba(0, 0, 0, 0.8);
+  background: color.$blush;
+  box-shadow: 0 30px 60px -28px rgba(63, 54, 64, 0.3);
   transform-style: preserve-3d;
 }
 
@@ -166,8 +166,8 @@ onBeforeUnmount(() => {
   right: 10%;
   top: 12%;
   height: 78%;
-  background: color.$paper-bright;
-  border-top: 2px solid color.$wine;
+  background: color.$cream;
+  border-top: 2px solid color.$accent;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -186,7 +186,7 @@ onBeforeUnmount(() => {
   font-size: 8px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: color.$muted-text;
+  color: color.$soft-text;
 }
 
 .envelope__letter-names {
@@ -197,7 +197,7 @@ onBeforeUnmount(() => {
 
   i {
     font-style: italic;
-    color: color.$wine;
+    color: color.$accent;
     padding: 0 0.16em;
   }
 }
@@ -206,14 +206,14 @@ onBeforeUnmount(() => {
   margin: 0;
   font-size: 9px;
   letter-spacing: 0.22em;
-  color: color.$muted-text;
+  color: color.$soft-text;
 }
 
 .envelope__pocket {
   position: absolute;
   inset: 0;
   z-index: 2;
-  background: color.$paper-shade;
+  background: color.$cream-deep;
   border-radius: 2px;
   clip-path: polygon(0 100%, 0 44%, 50% 76%, 100% 44%, 100% 100%);
 }
@@ -239,11 +239,11 @@ onBeforeUnmount(() => {
 }
 
 .envelope__flap-face--front {
-  background: color.$paper;
+  background: color.$blush;
 }
 
 .envelope__flap-face--back {
-  background: color.$paper-shade;
+  background: color.$cream-deep;
   transform: rotateX(180deg);
 }
 
@@ -255,8 +255,8 @@ onBeforeUnmount(() => {
   height: 40px;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: color.$wine;
-  color: color.$paper-bright;
+  background: color.$accent;
+  color: color.$cream;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -264,7 +264,7 @@ onBeforeUnmount(() => {
   font-size: 12px;
   letter-spacing: 0.04em;
   z-index: 4;
-  box-shadow: inset 0 -3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 -3px 7px rgba(63, 54, 64, 0.35);
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
@@ -276,7 +276,7 @@ onBeforeUnmount(() => {
   .envelope__letter {
     transform: translateY(-64%) scale(1.04);
     z-index: 5;
-    box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 24px 44px rgba(63, 54, 64, 0.22);
   }
 
   .envelope__seal {
