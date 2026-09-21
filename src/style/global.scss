@@ -63,19 +63,28 @@
 
 html {
   scroll-behavior: smooth;
+
+  // Вертикальная полоса прокрутки присутствует всегда — и во время
+  // прелоадера, и на самом сайте. Это не косметика: пока полосы нет,
+  // вьюпорт шире на её ширину, и `position: fixed` прелоадер оказывается
+  // шире контента сайта — в момент передачи управления всё дёргалось.
+  // `scrollbar-gutter: stable` тут не помогает: он выравнивает ширину
+  // body, но не вьюпорт, относительно которого считается fixed.
+  // По этой же причине скролл на время вступления не блокируется
+  // через `overflow: hidden` — он убрал бы полосу обратно.
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
+// overflow-x живёт на html: если повесить его на body, body станет
+// собственным скролл-контейнером и `position: sticky` внутри перестанет
+// цепляться за вьюпорт (заголовок в блоке «Программа»).
 body {
   padding: 0;
   margin: 0;
   background: color.$cream;
   color: color.$body-text;
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-}
-
-body.no-scroll {
-  overflow: hidden;
 }
 
 #app, button, input, textarea, select {

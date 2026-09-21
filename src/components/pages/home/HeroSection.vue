@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import ArrowRightIcon from '@icons/ArrowRightIcon.vue';
 import ArrowDownIcon from '@icons/ArrowDownIcon.vue';
+import HeartIcon from '@icons/HeartIcon.vue';
 import { useCountdown } from '@/composables/useCountdown';
 import {
   BRIDE_NAME,
@@ -14,7 +15,7 @@ import {
   WEDDING_YEAR,
 } from '@/data/weddingConfig';
 
-const { parts } = useCountdown(
+const { parts, isFinished } = useCountdown(
   new Date(WEDDING_YEAR, WEDDING_MONTH_INDEX, WEDDING_DAY, WEDDING_START_HOUR, 0, 0),
 );
 </script>
@@ -57,13 +58,22 @@ const { parts } = useCountdown(
     <p class="hero__hint" aria-hidden="true">Листайте вниз</p>
 
     <div class="hero__countdown">
-      <span class="hero__count-unit"><b>{{ parts.days }}</b><i>дней</i></span>
-      <em>:</em>
-      <span class="hero__count-unit"><b>{{ parts.hours }}</b><i>часов</i></span>
-      <em>:</em>
-      <span class="hero__count-unit"><b>{{ parts.minutes }}</b><i>минут</i></span>
-      <em>:</em>
-      <span class="hero__count-unit"><b>{{ parts.seconds }}</b><i>секунд</i></span>
+      <transition name="fadeMedium" mode="out-in">
+        <p v-if="isFinished" key="done" class="hero__countdown-done">
+          <HeartIcon class="hero__countdown-done-icon" />
+          <span>Торжество уже состоялось</span>
+        </p>
+
+        <div v-else key="counting" class="hero__countdown-active">
+          <span class="hero__count-unit"><b>{{ parts.days }}</b><i>дней</i></span>
+          <em>:</em>
+          <span class="hero__count-unit"><b>{{ parts.hours }}</b><i>часов</i></span>
+          <em>:</em>
+          <span class="hero__count-unit"><b>{{ parts.minutes }}</b><i>минут</i></span>
+          <em>:</em>
+          <span class="hero__count-unit"><b>{{ parts.seconds }}</b><i>секунд</i></span>
+        </div>
+      </transition>
     </div>
   </section>
 </template>
@@ -236,27 +246,34 @@ const { parts } = useCountdown(
   }
 }
 
+// Внешний блок только держит позицию (уголок геро) — раскладка того,
+// что внутри, живёт в дочерних .hero__countdown-active /
+// .hero__countdown-done, чтобы переход между ними не дёргал вёрстку.
 .hero__countdown {
   position: absolute;
   right: clamp(20px, 5vw, 64px);
   bottom: 44px;
+  color: color.$ink;
+
+  @media all and (max-width: 720px) {
+    left: 0;
+    right: 0;
+    bottom: 28px;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.hero__countdown-active {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  color: color.$ink;
 
   em {
     font-style: normal;
     font-size: 15px;
     line-height: 1.6;
     color: color.$accent-soft;
-  }
-
-  @media all and (max-width: 720px) {
-    left: 0;
-    right: 0;
-    justify-content: center;
-    bottom: 28px;
   }
 }
 
@@ -282,5 +299,27 @@ const { parts } = useCountdown(
     text-transform: uppercase;
     color: color.$soft-text;
   }
+}
+
+// Состояние после торжества — вместо цифр тихая курсивная строка
+// с сердцем вместо разделителя-двоеточия. Высота специально близка
+// к .hero__countdown-active, чтобы переход не «прыгал».
+.hero__countdown-done {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: font.$heading;
+  font-style: italic;
+  font-size: clamp(15px, 2vw, 18px);
+  line-height: 1.6;
+  color: color.$ink;
+  white-space: nowrap;
+}
+
+.hero__countdown-done-icon {
+  flex: none;
+  font-size: 14px;
+  color: color.$accent-soft;
 }
 </style>
