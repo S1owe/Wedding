@@ -36,6 +36,6 @@ export const SURPRISES_CONTACTS = [
 
 export const VENUE_REGION = 'Волгоградская область';
 export const VENUE_CITY = 'г. Урюпинск';
-export const VENUE_LAT = 50.8;
-export const VENUE_LON = 41.9528;
+export const VENUE_LAT = 50.792226;
+export const VENUE_LON = 41.999348;
 export const VENUE_ROUTE_URL = `https://yandex.ru/maps/?rtext=~${VENUE_LAT},${VENUE_LON}&rtt=auto`;
