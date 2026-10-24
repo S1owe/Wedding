@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
+import { onMounted, onUnmounted, reactive, ref } from 'vue';
 import ChapterMark from '@ui/ChapterMark.vue';
 import PlusIcon from '@icons/PlusIcon.vue';
 import CloseIcon from '@icons/CloseIcon.vue';
@@ -47,6 +47,20 @@ const errors = reactive<RsvpFormErrors>({
 });
 
 const isSubmitted = ref(false);
+const showThanksModal = ref(false);
+
+const closeThanksModal = () => {
+  showThanksModal.value = false;
+};
+
+const handleModalKeydown = (event: KeyboardEvent) => {
+  if (event.key === 'Escape' && showThanksModal.value) {
+    closeThanksModal();
+  }
+};
+
+onMounted(() => window.addEventListener('keydown', handleModalKeydown));
+onUnmounted(() => window.removeEventListener('keydown', handleModalKeydown));
 
 const addGuest = () => {
   formState.guests.push({ id: nextGuestId, name: '' });
@@ -68,7 +82,9 @@ const validate = (): boolean => {
 
 const handleSubmit = () => {
   if (!validate()) return;
+
   isSubmitted.value = true;
+  showThanksModal.value = true;
 };
 </script>
 
@@ -80,95 +96,115 @@ const handleSubmit = () => {
     <div class="shell rsvp__shell">
       <ChapterMark index="09" label="Ваш ответ" />
 
-      <transition name="fadeMedium" mode="out-in">
-        <div v-if="isSubmitted" key="thanks" class="rsvp__thanks">
-          <HeartIcon class="rsvp__thanks-icon" />
-          <p class="display display--small">Спасибо, что вы с нами.</p>
-          <p class="lede rsvp__thanks-note">Мы получили ваш ответ и очень ждём встречи.</p>
-        </div>
+      <div class="rsvp__body">
+        <header class="rsvp__intro">
+          <h2 v-reveal class="display">Будете ли вы частью<br>нашей истории?</h2>
+          <p v-reveal="80" class="rsvp__deadline">
+            Пожалуйста, заполните анкету до {{ RSVP_DEADLINE_LONG }}.
+          </p>
+          <p v-reveal="120" class="rsvp__micro">Это займёт около двух минут</p>
+        </header>
 
-        <div v-else key="form" class="rsvp__body">
-          <header class="rsvp__intro">
-            <h2 v-reveal class="display">Будете ли вы частью<br>нашей истории?</h2>
-            <p v-reveal="80" class="rsvp__deadline">
-              Пожалуйста, заполните анкету до {{ RSVP_DEADLINE_LONG }}.
-            </p>
-            <p v-reveal="120" class="rsvp__micro">Это займёт около двух минут</p>
-          </header>
+        <form v-reveal="160" class="rsvp__form" novalidate @submit.prevent="handleSubmit">
+          <div class="rsvp__field">
+            <span class="rsvp__label">Ваше имя</span>
 
-          <form v-reveal="160" class="rsvp__form" novalidate @submit.prevent="handleSubmit">
-            <div class="rsvp__field">
-              <span class="rsvp__label">Ваше имя</span>
-
-              <transition-group name="list" tag="div" class="rsvp__guests">
-                <div v-for="(guest, index) in formState.guests" :key="guest.id" class="rsvp__guest-row">
-                  <input
-                    v-model="guest.name"
-                    type="text"
-                    class="rsvp__input"
-                    :placeholder="index === 0 ? 'Имя и фамилия' : 'Имя гостя'"
-                  >
-                  <button
-                    v-if="formState.guests.length > 1"
-                    type="button"
-                    class="rsvp__remove-guest"
-                    aria-label="Удалить гостя"
-                    @click="removeGuest(guest.id)"
-                  >
-                    <CloseIcon />
-                  </button>
-                </div>
-              </transition-group>
-
-              <button type="button" class="rsvp__add-guest" @click="addGuest">
-                <PlusIcon /> Добавить гостя
-              </button>
-              <span v-if="errors.guests" class="rsvp__error">
-                Пожалуйста, укажите имя хотя бы одного гостя
-              </span>
-            </div>
-
-            <fieldset class="rsvp__field">
-              <legend class="rsvp__label">Вы сможете присутствовать?</legend>
-              <div class="rsvp__options">
-                <label v-for="option in attendanceOptions" :key="option.value" class="rsvp__option">
-                  <input v-model="formState.attendance" type="radio" name="attendance" :value="option.value">
-                  <span>{{ option.label }}</span>
-                </label>
+            <transition-group name="list" tag="div" class="rsvp__guests">
+              <div v-for="(guest, index) in formState.guests" :key="guest.id" class="rsvp__guest-row">
+                <input
+                  v-model="guest.name"
+                  type="text"
+                  class="rsvp__input"
+                  :placeholder="index === 0 ? 'Имя и фамилия' : 'Имя гостя'"
+                  :disabled="isSubmitted"
+                >
+                <button
+                  v-if="formState.guests.length > 1"
+                  type="button"
+                  class="rsvp__remove-guest"
+                  aria-label="Удалить гостя"
+                  :disabled="isSubmitted"
+                  @click="removeGuest(guest.id)"
+                >
+                  <CloseIcon />
+                </button>
               </div>
-              <span v-if="errors.attendance" class="rsvp__error">Выберите один из вариантов</span>
-            </fieldset>
+            </transition-group>
 
-            <fieldset class="rsvp__field">
-              <legend class="rsvp__label">Вам нужен трансфер в рамках мероприятия?</legend>
-              <div class="rsvp__options">
-                <label v-for="option in transferOptions" :key="option.value" class="rsvp__option">
-                  <input v-model="formState.transfer" type="radio" name="transfer" :value="option.value">
-                  <span>{{ option.label }}</span>
-                </label>
-              </div>
-              <span v-if="errors.transfer" class="rsvp__error">Выберите один из вариантов</span>
-            </fieldset>
-
-            <fieldset class="rsvp__field">
-              <legend class="rsvp__label">Вам нужно проживание?</legend>
-              <div class="rsvp__options">
-                <label v-for="option in accommodationOptions" :key="option.value" class="rsvp__option">
-                  <input v-model="formState.accommodation" type="radio" name="accommodation" :value="option.value">
-                  <span>{{ option.label }}</span>
-                </label>
-              </div>
-              <span v-if="errors.accommodation" class="rsvp__error">Выберите один из вариантов</span>
-            </fieldset>
-
-            <button type="submit" class="btn btn--solid rsvp__submit">
-              Отправить анкету
-              <ArrowRightIcon />
+            <button type="button" class="rsvp__add-guest" :disabled="isSubmitted" @click="addGuest">
+              <PlusIcon /> Добавить гостя
             </button>
-          </form>
+            <span v-if="errors.guests" class="rsvp__error">
+              Пожалуйста, укажите имя хотя бы одного гостя
+            </span>
+          </div>
+
+          <fieldset class="rsvp__field" :disabled="isSubmitted">
+            <legend class="rsvp__label">Вы сможете присутствовать?</legend>
+            <div class="rsvp__options">
+              <label v-for="option in attendanceOptions" :key="option.value" class="rsvp__option">
+                <input v-model="formState.attendance" type="radio" name="attendance" :value="option.value">
+                <span>{{ option.label }}</span>
+              </label>
+            </div>
+            <span v-if="errors.attendance" class="rsvp__error">Выберите один из вариантов</span>
+          </fieldset>
+
+          <fieldset class="rsvp__field" :disabled="isSubmitted">
+            <legend class="rsvp__label">Вам нужен трансфер в рамках мероприятия?</legend>
+            <div class="rsvp__options">
+              <label v-for="option in transferOptions" :key="option.value" class="rsvp__option">
+                <input v-model="formState.transfer" type="radio" name="transfer" :value="option.value">
+                <span>{{ option.label }}</span>
+              </label>
+            </div>
+            <span v-if="errors.transfer" class="rsvp__error">Выберите один из вариантов</span>
+          </fieldset>
+
+          <fieldset class="rsvp__field" :disabled="isSubmitted">
+            <legend class="rsvp__label">Вам нужно проживание?</legend>
+            <div class="rsvp__options">
+              <label v-for="option in accommodationOptions" :key="option.value" class="rsvp__option">
+                <input v-model="formState.accommodation" type="radio" name="accommodation" :value="option.value">
+                <span>{{ option.label }}</span>
+              </label>
+            </div>
+            <span v-if="errors.accommodation" class="rsvp__error">Выберите один из вариантов</span>
+          </fieldset>
+
+          <button v-if="!isSubmitted" type="submit" class="btn btn--solid rsvp__submit">
+            Отправить анкету
+            <ArrowRightIcon />
+          </button>
+          <p v-else class="rsvp__submitted-note">
+            <HeartIcon class="rsvp__submitted-icon" />
+            Спасибо, мы получили ваш ответ и очень ждём встречи
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <Teleport to="body">
+      <transition name="fadeFast">
+        <div v-if="showThanksModal" class="rsvp__modal" @click="closeThanksModal">
+          <div class="rsvp__modal-panel" @click.stop>
+            <button
+              type="button"
+              class="rsvp__modal-close"
+              aria-label="Закрыть"
+              @click="closeThanksModal"
+            >
+              <CloseIcon />
+            </button>
+            <div class="rsvp__thanks">
+              <HeartIcon class="rsvp__thanks-icon" />
+              <p class="display display--small rsvp__thanks-header">Спасибо, что вы с нами</p>
+              <p class="lede rsvp__thanks-note">Мы получили ваш ответ и очень ждём встречи</p>
+            </div>
+          </div>
         </div>
       </transition>
-    </div>
+    </Teleport>
   </section>
 </template>
 
@@ -247,12 +283,30 @@ const handleSubmit = () => {
 
   @media all and (max-width: 520px) {
     width: 120px;
+    margin-bottom: 16px;
+  }
+}
+
+.rsvp__thanks-header {
+  font-size: 42px;
+  max-width: 300px;
+
+  @media all and (max-width: 520px) {
+    font-size: 32px;
+    max-width: 200px;
   }
 }
 
 .rsvp__thanks-note {
   margin-left: auto;
   margin-right: auto;
+  font-size: 18px;
+
+  @media all and (max-width: 520px) {
+    font-size: 16px;
+    margin: 16px 0 0;
+    max-width: 250px;
+  }
 }
 
 .rsvp__form {
@@ -301,7 +355,7 @@ const handleSubmit = () => {
 .rsvp__input {
   flex: 1;
   min-width: 0;
-  padding: 13px 2px;
+  padding: 14px 16px;
   border: none;
   border-bottom: 1px solid color.$line;
   background: transparent;
@@ -318,6 +372,12 @@ const handleSubmit = () => {
   &:focus {
     outline: none;
     border-color: color.$accent;
+  }
+
+  &:disabled {
+    background-color: color.$disabled-bg;
+    color: color.$soft-text;
+    cursor: default;
   }
 }
 
@@ -336,6 +396,15 @@ const handleSubmit = () => {
 
   &:hover {
     color: color.$accent;
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.4;
+
+    &:hover {
+      color: color.$soft-text;
+    }
   }
 }
 
@@ -364,6 +433,15 @@ const handleSubmit = () => {
   &:hover {
     color: color.$ink;
   }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.4;
+
+    &:hover {
+      color: color.$accent;
+    }
+  }
 }
 
 .rsvp__options {
@@ -386,7 +464,19 @@ const handleSubmit = () => {
 
   &:has(input:checked) {
     border-color: color.$accent-soft;
-    background: color.$accent-pale;
+    background: rgba(140, 84, 100, 0.04);
+    color: color.$ink;
+  }
+
+  &:has(input:disabled) {
+    cursor: default;
+    border-color: color.$line;
+    background: color.$disabled-bg;
+    color: color.$soft-text;
+  }
+
+  &:has(input:checked):has(input:disabled) {
+    border-color: color.$line;
     color: color.$ink;
   }
 
@@ -395,6 +485,10 @@ const handleSubmit = () => {
     width: 15px;
     height: 15px;
     flex: none;
+
+    &:disabled {
+      cursor: default;
+    }
   }
 }
 
@@ -406,5 +500,79 @@ const handleSubmit = () => {
 
 .rsvp__submit {
   align-self: flex-start;
+}
+
+.rsvp__submitted-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: color.$body-text;
+  margin: 0;
+}
+
+.rsvp__submitted-icon {
+  flex: none;
+  font-size: 18px;
+  color: color.$accent-soft;
+}
+
+.rsvp__modal {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(63, 54, 64, 0.45);
+}
+
+.rsvp__modal-panel {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  max-height: 100%;
+  overflow-y: auto;
+  padding: 50px 40px;
+  border: 1px solid color.$line;
+  background: color.$cream;
+
+  @media all and (max-width: 520px) {
+    padding: 42px 26px;
+  }
+}
+
+.rsvp__modal-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  border: none;
+  background: none;
+  color: color.$soft-text;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color transition.$fast;
+
+  :deep(svg) {
+    width: 32px;
+    height: auto;
+  }
+
+  &:hover {
+    color: color.$accent;
+  }
+
+  @media all and (max-width: 520px) {
+    top: 16px;
+    right: 16px;
+
+    :deep(svg) {
+      width: 24px;
+      height: auto;
+    }
+  }
 }
 </style>
