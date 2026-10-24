@@ -6,6 +6,7 @@ import CloseIcon from '@icons/CloseIcon.vue';
 import ArrowRightIcon from '@icons/ArrowRightIcon.vue';
 import HeartIcon from '@icons/HeartIcon.vue';
 import { RSVP_DEADLINE_LONG } from '@/data/weddingConfig';
+import { submitRsvpForm } from '@/composables/useRsvpSubmit';
 import type {
   AccommodationAnswer,
   AttendanceAnswer,
@@ -47,6 +48,8 @@ const errors = reactive<RsvpFormErrors>({
 });
 
 const isSubmitted = ref(false);
+const isSubmitting = ref(false);
+const submitError = ref('');
 const showThanksModal = ref(false);
 
 const closeThanksModal = () => {
@@ -80,11 +83,23 @@ const validate = (): boolean => {
   return !errors.guests && !errors.attendance && !errors.transfer && !errors.accommodation;
 };
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
   if (!validate()) return;
 
-  isSubmitted.value = true;
-  showThanksModal.value = true;
+  isSubmitting.value = true;
+  submitError.value = '';
+
+  try {
+    await submitRsvpForm(formState);
+    isSubmitted.value = true;
+    showThanksModal.value = true;
+  } catch (error) {
+    submitError.value = 'Не удалось отправить анкету. Попробуйте ещё раз немного позже.';
+    // eslint-disable-next-line no-console
+    console.error(error);
+  } finally {
+    isSubmitting.value = false;
+  }
 };
 </script>
 
@@ -172,10 +187,13 @@ const handleSubmit = () => {
             <span v-if="errors.accommodation" class="rsvp__error">Выберите один из вариантов</span>
           </fieldset>
 
-          <button v-if="!isSubmitted" type="submit" class="btn btn--solid rsvp__submit">
-            Отправить анкету
-            <ArrowRightIcon />
-          </button>
+          <template v-if="!isSubmitted">
+            <button type="submit" class="btn btn--solid rsvp__submit" :disabled="isSubmitting">
+              {{ isSubmitting ? 'Отправляем…' : 'Отправить анкету' }}
+              <ArrowRightIcon />
+            </button>
+            <span v-if="submitError" class="rsvp__error">{{ submitError }}</span>
+          </template>
           <p v-else class="rsvp__submitted-note">
             <HeartIcon class="rsvp__submitted-icon" />
             Спасибо, мы получили ваш ответ и очень ждём встречи
