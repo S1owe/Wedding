@@ -259,6 +259,11 @@ const copyAddress = async () => {
   font-family: font.$heading;
   font-size: 20px;
   color: color.$ink;
+
+  @media all and (max-width: 520px) {
+    margin: 10px 0 0;
+    font-size: 18px;
+  }
 }
 
 .venue__fact-line {
@@ -266,6 +271,10 @@ const copyAddress = async () => {
   font-size: 14px;
   line-height: 1.7;
   color: color.$ink;
+
+  @media all and (max-width: 520px) {
+    font-size: 13px;
+  }
 }
 
 .venue__fact-contact {

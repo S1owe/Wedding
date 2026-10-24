@@ -2,6 +2,7 @@ export interface TimelineStage {
   id: number;
   time: string;
   title: string;
+  location?: string;
   note: string;
 }
 

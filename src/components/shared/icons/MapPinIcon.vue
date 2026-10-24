@@ -8,7 +8,7 @@
 
 <style scoped lang="scss">
 .icon-map-pin {
-  width: 1em;
-  height: 1em;
+  width: 22px;
+  height: auto;
 }
 </style>

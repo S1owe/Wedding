@@ -31,6 +31,7 @@ const pad = (value: number) => String(value).padStart(2, '0');
 
             <span class="program__body">
               <span class="program__title">{{ stage.title }}</span>
+              <span v-if="stage.location" class="program__location">{{ stage.location }}</span>
               <span class="program__note">{{ stage.note }}</span>
             </span>
 
@@ -114,6 +115,12 @@ const pad = (value: number) => String(value).padStart(2, '0');
   font-family: font.$heading;
   font-size: clamp(17px, 2vw, 21px);
   color: color.$ink;
+}
+
+.program__location {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: color.$accent;
 }
 
 .program__note {
