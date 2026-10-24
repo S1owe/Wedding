@@ -240,9 +240,14 @@ const handleSubmit = () => {
 }
 
 .rsvp__thanks-icon {
-  font-size: 22px;
+  width: 160px;
+  height: auto;
   color: color.$accent-soft;
   margin-bottom: 26px;
+
+  @media all and (max-width: 520px) {
+    width: 120px;
+  }
 }
 
 .rsvp__thanks-note {

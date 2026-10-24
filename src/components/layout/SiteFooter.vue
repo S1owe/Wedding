@@ -57,13 +57,8 @@ const shareInvitation = async () => {
         <p class="site-footer__date">{{ WEDDING_DATE_SPACED }}</p>
 
         <div class="site-footer__actions">
-          <button type="button" class="btn btn--solid" @click="shareInvitation">
-            <CheckIcon v-if="isShared" />
-            <ShareIcon v-else />
-            {{ isShared ? 'Ссылка скопирована' : 'Поделиться приглашением' }}
-          </button>
-          <a class="btn btn--ghost" href="#rsvp">
-            Ответить
+          <a class="btn btn--solid" href="#rsvp">
+            Подтвердить присутствие
             <ArrowRightIcon />
           </a>
         </div>

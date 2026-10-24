@@ -74,6 +74,13 @@ html {
   // через `overflow: hidden` — он убрал бы полосу обратно.
   overflow-x: hidden;
   overflow-y: scroll;
+
+  // Без этого Chrome включает CSS scroll anchoring: когда в любом месте
+  // страницы вставляется/удаляется элемент (например, строка гостя в RSVP
+  // через transition-group), браузер сам «компенсирующе» подвигает скролл
+  // всего окна, хотя видимая область вокруг курсора не менялась. Из-за
+  // scroll-behavior: smooth выше это ещё и выглядит как плавный рывок.
+  overflow-anchor: none;
 }
 
 // overflow-x живёт на html: если повесить его на body, body станет
