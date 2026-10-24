@@ -13,10 +13,9 @@ const pad = (value: number) => String(value).padStart(2, '0');
       <div class="editorial program__grid">
         <div class="program__intro">
           <span v-reveal class="eyebrow">Сценарий дня</span>
-          <h2 v-reveal="60" class="display">Шесть сцен.<br>Один день.</h2>
+          <h2 v-reveal="60" class="display">Главы нашей истории</h2>
           <p v-reveal="120" class="lede">
-            Мы не просим приходить строго по расписанию — но так вам будет проще спланировать
-            дорогу, наряд и силы до самого вечера.
+            Мы не просим приходить строго по расписанию — но так вам будет проще спланировать дорогу, наряд и силы до самого вечера.
           </p>
         </div>
 

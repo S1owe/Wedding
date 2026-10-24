@@ -3,22 +3,23 @@ import { ref } from 'vue';
 import ChapterMark from '@ui/ChapterMark.vue';
 import CopyIcon from '@icons/CopyIcon.vue';
 import CheckIcon from '@icons/CheckIcon.vue';
-import { SURPRISES_CONTACT } from '@/data/weddingConfig';
+import { SURPRISES_CONTACTS } from '@/data/weddingConfig';
+import HeartIcon from "@icons/HeartIcon.vue";
 
-const isCopied = ref(false);
+const copiedUrl = ref<string | null>(null);
 let resetTimer: ReturnType<typeof setTimeout> | undefined;
 
-const copyContact = async () => {
+const copyContact = async (url: string) => {
   try {
-    await navigator.clipboard.writeText(SURPRISES_CONTACT);
+    await navigator.clipboard.writeText(url);
   } catch {
     return;
   }
 
-  isCopied.value = true;
+  copiedUrl.value = url;
   clearTimeout(resetTimer);
   resetTimer = setTimeout(() => {
-    isCopied.value = false;
+    copiedUrl.value = null;
   }, 2000);
 };
 </script>
@@ -40,26 +41,23 @@ const copyContact = async () => {
           </p>
 
           <div class="contacts">
-            <div class="contact-persons">
-              <p class="contact-persons__hint">Организатор — Наталья</p>
+            <div v-for="contact in SURPRISES_CONTACTS" :key="contact.url" class="contact-persons">
+              <p class="contact-persons__hint">{{ contact.role }} — {{ contact.name }}</p>
 
-              <button type="button" class="contact-persons__contact" @click="copyContact">
-                <span>{{ SURPRISES_CONTACT }}</span>
-                <CheckIcon v-if="isCopied" />
-                <CopyIcon v-else />
-              </button>
-            </div>
-
-            <div class="contact-persons">
-              <p class="contact-persons__hint">Ведущий — Георгий</p>
-
-              <button type="button" class="contact-persons__contact" @click="copyContact">
-                <span>{{ SURPRISES_CONTACT }}</span>
-                <CheckIcon v-if="isCopied" />
-                <CopyIcon v-else />
+              <button type="button" class="contact-persons__contact" @click="copyContact(contact.url)">
+                <span>{{ contact.label }}</span>
+                <transition name="fade" mode="out-in">
+                  <CheckIcon class="contact-icon" v-if="copiedUrl === contact.url" key="check"/>
+                  <CopyIcon class="contact-icon" v-else key="copy" />
+                </transition>
               </button>
             </div>
           </div>
+
+          <p class="lede surprises__ps">
+            P.S. Тамара Растегаева и Иван Попов, это обязательно касается и вас! Мы очень ждем ваши творческие поздравления
+            <HeartIcon class="svg-heart"/>
+          </p>
         </div>
       </div>
     </div>
@@ -79,6 +77,23 @@ const copyContact = async () => {
 
 .surprises__text {
   margin-top: 0;
+}
+
+.surprises__ps {
+  margin-top: 20px;
+  font-size: 13px;
+  color: color.$soft-text;
+  font-style: italic;
+}
+
+.svg-heart {
+  width: 16px;
+  height: auto;
+  margin-bottom: -2px;
+
+  :deep(path) {
+    fill: color.$accent-soft;
+  }
 }
 
 .contacts {
@@ -128,6 +143,16 @@ const copyContact = async () => {
   &:hover {
     border-color: color.$accent-soft;
     background: rgba(140, 84, 100, 0.04);
+  }
+}
+
+.contact-icon {
+  width: 22px;
+  height: auto;
+
+  @media all and (max-width: 520px) {
+    width: 20px;
+    height: auto;
   }
 }
 </style>

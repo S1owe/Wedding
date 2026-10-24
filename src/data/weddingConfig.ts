@@ -19,7 +19,20 @@ export const RSVP_DEADLINE_LONG = '1 июня 2027 года';
 export const CALENDAR_MONTH_NAME = 'Август';
 export const WEEKDAY_LABELS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 
-export const SURPRISES_CONTACT = '@contact_vebinary';
+export const SURPRISES_CONTACTS = [
+  {
+    role: 'Организатор',
+    name: 'Наталья',
+    label: 'vk.ru/id17518909',
+    url: 'https://vk.ru/id17518909',
+  },
+  {
+    role: 'Ведущий',
+    name: 'Георгий',
+    label: 'vk.ru/bondbrazers',
+    url: 'https://vk.ru/bondbrazers',
+  },
+];
 
 export const VENUE_REGION = 'Волгоградская область';
 export const VENUE_CITY = 'г. Урюпинск';

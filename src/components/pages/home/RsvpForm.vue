@@ -22,7 +22,7 @@ const attendanceOptions: { value: AttendanceAnswer; label: string }[] = [
 const transferOptions: { value: TransferAnswer; label: string }[] = [
   { value: 'yes', label: 'Да' },
   { value: 'no', label: 'Нет' },
-  { value: 'canBringSomeone', label: 'Нет, но могу захватить кого-то' },
+  { value: 'canBringSomeone', label: 'Буду на своей и могу кого-то захватить :)' },
 ];
 
 const accommodationOptions: { value: AccommodationAnswer; label: string }[] = [
@@ -89,7 +89,7 @@ const handleSubmit = () => {
 
         <div v-else key="form" class="rsvp__body">
           <header class="rsvp__intro">
-            <h2 v-reveal class="display">Вы будете<br>в этом кадре?</h2>
+            <h2 v-reveal class="display">Будете ли вы частью<br>нашей истории?</h2>
             <p v-reveal="80" class="rsvp__deadline">
               Пожалуйста, заполните анкету до {{ RSVP_DEADLINE_LONG }}.
             </p>
@@ -140,7 +140,7 @@ const handleSubmit = () => {
             </fieldset>
 
             <fieldset class="rsvp__field">
-              <legend class="rsvp__label">Вам нужен трансфер?</legend>
+              <legend class="rsvp__label">Вам нужен трансфер в рамках мероприятия?</legend>
               <div class="rsvp__options">
                 <label v-for="option in transferOptions" :key="option.value" class="rsvp__option">
                   <input v-model="formState.transfer" type="radio" name="transfer" :value="option.value">
