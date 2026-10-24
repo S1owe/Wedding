@@ -10,13 +10,19 @@ export interface DressCodeColor {
   name: string;
 }
 
-export type VenueFactIcon = 'route' | 'bed' | 'clock';
+export type VenueFactIcon = 'bus' | 'bed' | 'sun' | 'phone';
+
+export interface VenueFactContact {
+  label: string;
+  href: string;
+}
 
 export interface VenueFact {
   id: string;
   icon: VenueFactIcon;
   title: string;
   lines: string[];
+  contact?: VenueFactContact;
 }
 
 export interface FaqItem {

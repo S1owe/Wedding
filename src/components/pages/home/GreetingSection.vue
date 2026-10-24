@@ -12,7 +12,7 @@ import { COUPLE_SHORT, WEDDING_DATE_LABEL } from '@/data/weddingConfig';
         <div class="story__text">
           <span v-reveal class="eyebrow">Дорогие родные и друзья</span>
 
-          <h2 v-reveal="60" class="display">Этот день не случится без вас.</h2>
+          <h2 v-reveal="60" class="display">Этот день не случится без вас</h2>
 
           <p v-reveal="120" class="story__lead">
             Всё началось со случайного знакомства, к которому мы совершенно не были готовы. Совершенно разные миры, но в один момент судьба свела нас вместе, и стало очевидно: это навсегда!
@@ -36,7 +36,7 @@ import { COUPLE_SHORT, WEDDING_DATE_LABEL } from '@/data/weddingConfig';
         <figure v-reveal="120" class="story__figure">
           <span class="story__frame" aria-hidden="true" />
           <div class="story__photo">
-            <img src="/images/story-bouquet.jpg" alt="Букет невесты из пудровых роз и гортензии" loading="lazy">
+            <img src="/images/story-bouquet.jpg" alt="Наше совместное фото" loading="lazy">
           </div>
           <figcaption class="story__caption">
             <span>{{ WEDDING_DATE_LABEL }}</span>

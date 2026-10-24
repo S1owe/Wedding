@@ -2,8 +2,10 @@
 import { ref } from 'vue';
 import ChapterMark from '@ui/ChapterMark.vue';
 import RouteIcon from '@icons/RouteIcon.vue';
+import BusIcon from '@icons/BusIcon.vue';
 import BedIcon from '@icons/BedIcon.vue';
-import ClockIcon from '@icons/ClockIcon.vue';
+import SunIcon from '@icons/SunIcon.vue';
+import PhoneIcon from '@icons/PhoneIcon.vue';
 import MapPinIcon from '@icons/MapPinIcon.vue';
 import CopyIcon from '@icons/CopyIcon.vue';
 import CheckIcon from '@icons/CheckIcon.vue';
@@ -11,10 +13,11 @@ import venueFacts from '@/data/venueFacts';
 import type { VenueFactIcon } from '@/types/wedding';
 import { VENUE_CITY, VENUE_REGION, VENUE_ROUTE_URL } from '@/data/weddingConfig';
 
-const factIcons: Record<VenueFactIcon, typeof RouteIcon> = {
-  route: RouteIcon,
+const factIcons: Record<VenueFactIcon, typeof BusIcon> = {
+  bus: BusIcon,
   bed: BedIcon,
-  clock: ClockIcon,
+  sun: SunIcon,
+  phone: PhoneIcon,
 };
 
 const isCopied = ref(false);
@@ -82,6 +85,7 @@ const copyAddress = async () => {
           <component :is="factIcons[fact.icon]" class="venue__fact-icon" />
           <h3 class="venue__fact-title">{{ fact.title }}</h3>
           <p v-for="line in fact.lines" :key="line" class="venue__fact-line">{{ line }}</p>
+          <a v-if="fact.contact" class="venue__fact-contact" :href="fact.contact.href">{{ fact.contact.label }}</a>
         </li>
       </ul>
     </div>
@@ -144,11 +148,12 @@ const copyAddress = async () => {
   font-weight: 500;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: color.$soft-text;
+  color: color.$ink;
 }
 
 .venue__note {
   margin-top: 24px;
+  color: color.$ink;
 }
 
 .venue__card {
@@ -232,11 +237,11 @@ const copyAddress = async () => {
 
 .venue__facts {
   list-style: none;
-  margin: 44px 0 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(28px, 4vw, 56px);
+  margin: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(32px, 4vw, 56px) clamp(28px, 5vw, 72px);
 
   @media all and (max-width: 780px) {
     grid-template-columns: minmax(0, 1fr);
@@ -245,21 +250,38 @@ const copyAddress = async () => {
 }
 
 .venue__fact-icon {
-  font-size: 17px;
+  font-size: 22px;
   color: color.$accent;
 }
 
 .venue__fact-title {
   margin: 18px 0 0;
   font-family: font.$heading;
-  font-size: 19px;
+  font-size: 20px;
   color: color.$ink;
 }
 
 .venue__fact-line {
   margin: 8px 0 0;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.7;
   color: color.$ink;
+}
+
+.venue__fact-contact {
+  display: inline-block;
+  margin: 14px 0 0;
+  font-family: font.$heading;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  color: color.$accent;
+  text-decoration: none;
+  border-bottom: 1px solid color.$accent-soft;
+  transition: color transition.$fast, border-color transition.$fast;
+
+  &:hover {
+    color: color.$ink;
+    border-color: color.$accent;
+  }
 }
 </style>

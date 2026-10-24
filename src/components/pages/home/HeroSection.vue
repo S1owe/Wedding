@@ -322,4 +322,13 @@ const { parts, isFinished } = useCountdown(
   font-size: 14px;
   color: color.$accent-soft;
 }
+
+.hero__countdown-done-icon {
+  width: 32px;
+  height: auto;
+
+  :deep(path) {
+    fill: color.$accent-soft;
+  }
+}
 </style>

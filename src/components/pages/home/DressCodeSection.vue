@@ -11,28 +11,13 @@ import dressCode from '@/data/dressCode';
       <div class="editorial">
         <div>
           <span v-reveal class="eyebrow">Pastel · optional</span>
-          <h2 v-reveal="60" class="display">Мягкие оттенки.<br>Чистые линии.</h2>
+          <h2 v-reveal="60" class="display">Оттенки нашего дня</h2>
 
           <p v-reveal="120" class="lede">
             Дресс-код не обязателен, но нам будет особенно приятно увидеть вас в образах
             из этой палитры — пастельных и неярких. Просим оставить белый цвет невесте
             и отказаться от активных принтов.
           </p>
-
-          <div v-reveal="180" class="dress-code__advice">
-            <div>
-              <p class="dress-code__advice-title">Для неё</p>
-              <p class="dress-code__advice-text">
-                Платье миди или макси, костюм, сдержанные украшения.
-              </p>
-            </div>
-            <div>
-              <p class="dress-code__advice-title">Для него</p>
-              <p class="dress-code__advice-text">
-                Светлая рубашка или поло, лёгкий костюм без галстука.
-              </p>
-            </div>
-          </div>
         </div>
 
         <div v-reveal="120" class="dress-code__card-wrap">

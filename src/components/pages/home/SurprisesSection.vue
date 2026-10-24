@@ -31,24 +31,35 @@ const copyContact = async () => {
       <div class="editorial">
         <div>
           <span v-reveal class="eyebrow">Есть идея?</span>
-          <h2 v-reveal="60" class="display">Ваш сюрприз<br>мы сохраним в тайне.</h2>
+          <h2 v-reveal="60" class="display">Ваш сюрприз<br>мы сохраним в тайне</h2>
         </div>
 
         <div v-reveal="120" class="surprises__panel">
           <p class="lede surprises__text">
-            Если у вас есть отдельное пожелание, номер или конкурс для нас — напишите нашему
-            ведущему. Он поможет вписать это в вечер так, чтобы для нас это осталось сюрпризом.
+            Если у вас есть отдельное пожелание, номер, трогательное поздравление или конкурс для нас — напишите напрямую нашему ведущему или организатору. Они помогут деликатно вписать это в программу вечера так, чтобы для нас это осталось настоящим сюрпризом.
           </p>
 
-          <button type="button" class="surprises__contact" @click="copyContact">
-            <span>{{ SURPRISES_CONTACT }}</span>
-            <CheckIcon v-if="isCopied" />
-            <CopyIcon v-else />
-          </button>
+          <div class="contacts">
+            <div class="contact-persons">
+              <p class="contact-persons__hint">Организатор — Наталья</p>
 
-          <p class="surprises__hint">
-            {{ isCopied ? 'Скопировано' : 'Нажмите, чтобы скопировать' }}
-          </p>
+              <button type="button" class="contact-persons__contact" @click="copyContact">
+                <span>{{ SURPRISES_CONTACT }}</span>
+                <CheckIcon v-if="isCopied" />
+                <CopyIcon v-else />
+              </button>
+            </div>
+
+            <div class="contact-persons">
+              <p class="contact-persons__hint">Ведущий — Георгий</p>
+
+              <button type="button" class="contact-persons__contact" @click="copyContact">
+                <span>{{ SURPRISES_CONTACT }}</span>
+                <CheckIcon v-if="isCopied" />
+                <CopyIcon v-else />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -70,8 +81,29 @@ const copyContact = async () => {
   margin-top: 0;
 }
 
-.surprises__contact {
+.contacts {
+  display: flex;
+  flex-direction: column;
   margin-top: 30px;
+  gap: 20px;;
+}
+
+.contact-persons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-persons__hint {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color.$soft-text;
+  margin: 0;
+}
+
+.contact-persons__contact {
   width: 100%;
   display: inline-flex;
   align-items: center;
@@ -97,14 +129,5 @@ const copyContact = async () => {
     border-color: color.$accent-soft;
     background: rgba(140, 84, 100, 0.04);
   }
-}
-
-.surprises__hint {
-  margin: 14px 0 0;
-  font-size: 9.5px;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: color.$soft-text;
 }
 </style>

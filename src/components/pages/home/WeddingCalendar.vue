@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import ChapterMark from '@ui/ChapterMark.vue';
 import CalendarIcon from '@icons/CalendarIcon.vue';
+import HeartIcon from '@icons/HeartIcon.vue';
 import type { CalendarDay } from '@/types/wedding';
 import { buildCalendarUrl } from '@/composables/useCalendarLink';
 import {
@@ -55,9 +56,10 @@ const weeks = computed<CalendarDay[][]>(() => {
       <div class="editorial">
         <div>
           <span v-reveal class="eyebrow">Отметьте в календаре</span>
-          <h2 v-reveal="60" class="display">Один день,<br>который мы ждём.</h2>
+          <h2 v-reveal="60" class="display">День, который<br>мы очень ждем</h2>
           <p v-reveal="120" class="lede">
-            В этот день мы скажем «да» — и будем рады, если вы окажетесь в этом кадре рядом с нами.
+            В этот день начнется наша новая история. Будем счастливы если вы начнете писать ее вместе с нами! Добавляй в календарь, что бы не забыть
+            <HeartIcon class="svg-heart"/>
           </p>
 
           <p v-reveal="160" class="calendar-section__date">{{ WEDDING_DATE_SPACED }}</p>
@@ -86,7 +88,8 @@ const weeks = computed<CalendarDay[][]>(() => {
                   'calendar__day--highlighted': day.isHighlighted,
                 }"
               >
-                {{ day.date }}
+                <HeartIcon v-if="day.isHighlighted" class="calendar__day-heart" />
+                <span class="calendar__day-number">{{ day.date }}</span>
               </span>
             </div>
           </div>
@@ -99,6 +102,15 @@ const weeks = computed<CalendarDay[][]>(() => {
 <style scoped lang="scss">
 @use "@/style/variables/color.scss" as color;
 @use "@/style/variables/font.scss" as font;
+
+.editorial {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+
+  @media all and (max-width: 900px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
 
 .calendar-section__date {
   margin: 38px 0 0;
@@ -179,8 +191,36 @@ const weeks = computed<CalendarDay[][]>(() => {
     font-family: font.$heading;
     font-size: 16px;
     font-weight: 500;
-    color: color.$cream;
-    background: color.$accent;
   }
+}
+
+.calendar__day--highlighted .calendar__day-number {
+  color: color.$cream;
+}
+
+.svg-heart {
+  width: 18px;
+  height: auto;
+  margin-bottom: -2px;
+
+  :deep(path) {
+    fill: color.$accent;
+  }
+}
+
+.calendar__day-heart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.1em;
+  color: color.$accent;
+  width: 100%;
+  height: auto;
+}
+
+.calendar__day-number {
+  position: relative;
+  color: color.$ink;
 }
 </style>

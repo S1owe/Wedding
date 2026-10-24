@@ -167,7 +167,7 @@ a {
 .editorial {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(32px, 6vw, 96px);
+  gap: clamp(32px, 8vw, 96px);
   align-items: start;
 
   @media all and (max-width: 900px) {

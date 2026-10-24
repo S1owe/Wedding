@@ -11,7 +11,7 @@ import EnvelopeIcon from '@icons/EnvelopeIcon.vue';
       <div class="editorial">
         <div>
           <span v-reveal class="eyebrow">Дорогие гости</span>
-          <h2 v-reveal="60" class="display">Лучший подарок — вы рядом.</h2>
+          <h2 v-reveal="60" class="display">Лучший подарок — вы рядом</h2>
         </div>
 
         <div v-reveal="120" class="gifts__note">
