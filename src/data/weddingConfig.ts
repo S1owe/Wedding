@@ -22,7 +22,7 @@ export const WEEKDAY_LABELS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', '
 export const SURPRISES_CONTACTS = [
   {
     role: 'Организатор',
-    name: 'Наталья',
+    name: 'Наталия',
     label: 'vk.ru/id17518909',
     url: 'https://vk.ru/id17518909',
   },
